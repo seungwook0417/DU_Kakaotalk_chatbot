@@ -1,3 +1,6 @@
 
-useful/telegram_config.json
+telegram_config.json
 data.json
+*.xml
+*.iml
+__pycache__/__init__.cpython-38.pyc

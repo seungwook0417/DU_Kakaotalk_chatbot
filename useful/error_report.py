@@ -17,6 +17,6 @@ def error_report_answer(content):
 
 # 텔레그램 전송
 def send_telegram(title, content):
-    config = json.load(open("../telegram_config.json"))
+    config = json.load(open("./telegram_config.json"))
     bot = telegram.Bot(token=config["account"]["token"])
     bot.sendMessage(chat_id=config["account"]["chatID"], text="제목: " + title + "\n내용: " + content)
