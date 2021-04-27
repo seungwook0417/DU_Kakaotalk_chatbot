@@ -1,6 +1,7 @@
 import json
 import requests
-
+import time
+from setting.answer_main import answer
 from setting.card import *
 headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.152 Safari/537.36",
@@ -29,12 +30,14 @@ def haksa_chedule_Parser(content):
         description = schedule_month_Parser(month)
     # 그외
     else:
+        date = time.strftime('%Y-%m', time.localtime(time.time()))
         month = ""
         description = schedule_month_Parser(month)
 
     title = date + " 학사일정 안내"
     response = insert_card(title, description)
     response = insert_button_url(response,"전체 일정","https://daegu.ac.kr/schedule/detail?schedule_info_seq=1")
+    response = answer(response)
     return response
 
 # 학사일정 일별 파싱

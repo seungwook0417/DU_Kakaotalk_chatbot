@@ -1,4 +1,5 @@
 from setting.card import *
+from setting.answer_main import answer
 import requests
 
 headers = {
@@ -22,6 +23,7 @@ def search_member_Parser(content):
     condition = 'name_kr'
     text = DU_search_Parser(content, condition)
     response = insert_text(text)
+    response = answer(response)
     return response
 
 # 학교 당담자 부서로 섬색
@@ -31,6 +33,7 @@ def search_buseo_Parser(content):
     condition = 'buseo'
     text = DU_search_Parser(content, condition)
     response = insert_text(text)
+    response = answer(response)
     return response
 
 #이름 연락처 찾기 파싱

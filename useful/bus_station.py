@@ -1,7 +1,7 @@
 import requests
 import json
 from setting.card import *
-
+from setting.answer_main import answer
 headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.152 Safari/537.36",
     "Accept-Language": "ko",
@@ -66,8 +66,10 @@ def find_bus_Paser(content):
 
         if text == "":
             response = insert_text(title)
+            response = answer(response)
         else:
             response = insert_text(title + text)
+            response = answer(response)
     except:
         pass
 

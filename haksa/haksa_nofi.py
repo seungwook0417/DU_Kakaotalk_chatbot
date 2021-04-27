@@ -1,6 +1,6 @@
 import requests
 from setting.card import insert_list, insert_list_item, insert_list_button
-
+from setting.answer_main import answer
 headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.152 Safari/537.36",
     "Accept-Language": "ko",
@@ -24,5 +24,5 @@ def haksa_Parser():
                                     a['inpt_date'],
                                     "https://daegu.ac.kr//resources//images/site/layout/chatbot.png",
                                     "https://www.daegu.ac.kr/article/DG159/detail/"+a['article_seq'])
-
+        response = answer(response)
     return response

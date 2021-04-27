@@ -22,79 +22,79 @@ app = Flask(__name__)
 
 # 환영인사
 @app.route("/hello", methods=['POST'])
-async def hello():
+def hello():
     response = answer()
     return jsonify(response)
 
 # 학사공지
 @app.route("/haksa", methods=['POST'])
-async def haksa():
+def haksa():
     response = haksa_Parser()
     return jsonify(response)
 
 # 학사일정
 @app.route("/schedule", methods=['POST'])
-async def schedule():
+def schedule():
     content = request.get_json()
     response = haksa_chedule_Parser(content)
     return jsonify(response)
 
 # 강의실 검색
 @app.route("/find_lecture", methods=['POST'])
-async def find_lecture():
+def find_lecture():
     content = request.get_json()
     response = lecture_Parser(content)
     return jsonify(response)
 
 # 편의시설 검색 (추후 제작)
 @app.route("/find_building", methods=['POST'])
-async def find_building():
+def find_building():
     response = " "
     return jsonify(response)
 
 # 구성원 검색
 @app.route("/search", methods=['POST'])
-async def search():
+def search():
     response = search_Parser()
     return jsonify(response)
 
 # 이름 연락처 찾기
 @app.route("/search_member", methods=['POST'])
-async def search_member():
+def search_member():
     content = request.get_json()
     response = search_member_Parser(content)
     return jsonify(response)
 
 # 소속 연락처 찾기
 @app.route("/search_buseo", methods=['POST'])
-async def search_buseo():
+def search_buseo():
     content = request.get_json()
     response = search_member_Parser(content)
     return jsonify(response)
 
 # 학과 페이지 검색 (추후 제작)
 @app.route("/page", methods=['POST'])
-async def page():
+def page():
     response = " "
     return jsonify(response)
 
 # 버스정류장 검색
 @app.route("/find_bus", methods=['POST'])
-async def find_bus():
+def find_bus():
     content = request.get_json()
     response = find_bus_Paser(content)
     return jsonify(response)
 
 # 오류보고 보고서
 @ app.route('/message', methods=['POST'])
-async def message():
+def message():
     content = request.get_json()
     response = error_report_answer(content)
     return jsonify(response)
 
 # 날씨 검색 (제작중)
 @ app.route('/weather', methods=['POST'])
-async def weather():
+def weather():
     dataSend = " "
     return jsonify(dataSend)
 

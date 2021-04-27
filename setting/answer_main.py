@@ -1,8 +1,7 @@
 from setting.card import insert_text, make_reply, insert_replies
 
 # 퀵 리플라이 메인
-def answer():
-    response = insert_text('원하는 정보를 선택해주세요.')
+def answer(response):
     reply = make_reply('🏫 강의실 검색', '강의실 검색')
     response = insert_replies(response, reply)
     reply = make_reply('🚍 시내버스 도착정보', '시내버스 도착정보')

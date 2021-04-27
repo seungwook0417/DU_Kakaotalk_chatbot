@@ -1,5 +1,6 @@
 import json
 from setting.card import *
+from setting.answer_main import answer
 
 # 강의실 찾기
 def lecture_Parser(content):
@@ -26,10 +27,11 @@ def lecture_Parser(content):
 
         if title == "":
             response = insert_text("해당 강의실을 찾지 못했어요\n ex)공7506 또는 000\n\n혹시 강의실이 검색이 안되나요?😢\n오류제보 통해 제보해주세요!😊")
+            response = answer(response)
         else:
             response = insert_card(title, description)
             response = insert_button_url(response, "길찾기", location_URL)
-
+            response = answer(response)
         return response
 
     except:
