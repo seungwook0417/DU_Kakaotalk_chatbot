@@ -2,6 +2,7 @@
 
 💬 대구대학교 카카오 i 오픈빌더 챗봇**두두**
 ![enter image description here](https://i.esdrop.com/d/bfcL9GYvUs.jpg)
+
 ![enter image description here](https://lh3.googleusercontent.com/QqYERC5MAtzPDb2RCaQXIQ6VoM_7XNumeZcGUw9wT2ZCcc139il-iHvL9uy0p9cO_oPaNkkqfi6i1toKAnNTo1fW_PL8ZjfR2xq8HQVUkfYXrhJj20SCteai0A9j3y6_PdXLKLyXWA=w2400)
 # 소개
 
@@ -18,9 +19,9 @@
 - 🚍교내 셔틀버스 안내
 - 📞부서연락처 안내
 - 😰오류 및 건의사항 제보
-- ~~편의시설 위치 안내~~ **개발중**
-- ~~대구대학교 날씨~~ **개발중**
-- ~~학과별 공지사항 안내~~**개발중**
+- ~~편의시설 위치 안내~~ **개발중 입니다**
+- ~~대구대학교 날씨~~ **개발중 입니다**
+- ~~학과별 공지사항 안내~~**개발중 입니다**
 
 ## 사용방법
 
