@@ -97,3 +97,7 @@ async def message():
 async def weather():
     dataSend = " "
     return jsonify(dataSend)
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port="25000", debug=False)
+    #app.run()
