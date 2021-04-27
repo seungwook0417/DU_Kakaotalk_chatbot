@@ -1,9 +1,9 @@
 # 대구대학교 카카오톡 챗봇
 
 💬 대구대학교 카카오 i 오픈빌더 챗봇**두두**
-![enter image description here](https://i.esdrop.com/d/bfcL9GYvUs.jpg)
+![대구대학교 카카오톡 챗봇 출시](https://github.com/seungwook0417/DU_Kakaotalk_chatbot/blob/master/01.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/QqYERC5MAtzPDb2RCaQXIQ6VoM_7XNumeZcGUw9wT2ZCcc139il-iHvL9uy0p9cO_oPaNkkqfi6i1toKAnNTo1fW_PL8ZjfR2xq8HQVUkfYXrhJj20SCteai0A9j3y6_PdXLKLyXWA=w2400)
+![대구대학교 카카오톡 챗봇](https://github.com/seungwook0417/DU_Kakaotalk_chatbot/blob/master/02.gif)
 # 소개
 
 안녕하세요!
