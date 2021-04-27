@@ -24,5 +24,6 @@ def haksa_Parser():
                                     a['inpt_date'],
                                     "https://daegu.ac.kr//resources//images/site/layout/chatbot.png",
                                     "https://www.daegu.ac.kr/article/DG159/detail/"+a['article_seq'])
-        response = answer(response)
+
+    response = answer(response)
     return response
