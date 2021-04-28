@@ -4,6 +4,8 @@
 
 ![대구대학교 카카오톡 챗봇 출시](https://github.com/seungwook0417/DU_Kakaotalk_chatbot/blob/main/resource/01.jpg)
 
+![대구대학교 카카오톡 챗봇 검색](https://github.com/seungwook0417/DU_Kakaotalk_chatbot/blob/main/resource/04.png)
+
 ![대구대학교 카카오톡 챗봇](https://github.com/seungwook0417/DU_Kakaotalk_chatbot/blob/main/resource/02.gif)
 # 소개
 
