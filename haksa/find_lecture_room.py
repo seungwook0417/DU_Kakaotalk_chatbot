@@ -22,7 +22,7 @@ def lecture_Parser(content):
             if content in i['id'] or content in i['name']:
                 title = i['name'] + " 입니다."
                 description = i['location'] + " " + i['floor'] + "\n"
-                location_URL = '"https://map.kakao.com/link/to/' + str(i['type']) + '/"'
+                location_URL = 'https://map.kakao.com/link/to/' + str(i['type']) + '/'
                 break;
 
         if title == "":
