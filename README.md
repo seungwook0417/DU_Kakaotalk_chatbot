@@ -43,4 +43,4 @@
 ## 개발자 정보
 
 - 개발자 : 대구대학교 💻컴퓨터공학 16학번 재학생 [3학년](https://github.com/seungwook0417) [4학년](https://github.com/eogus65121)
-- 피드백 : leave an issue or [swlee@daegu.ac.kr](matilto:swlee@daegu.ac.kr)
+- 피드백 : leave an issue or swlee@daegu.ac.kr
