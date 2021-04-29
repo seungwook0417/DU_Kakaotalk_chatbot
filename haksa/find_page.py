@@ -2,20 +2,20 @@ import json
 from setting.card import *
 from setting.answer_main import answer
 
-# 학과 페이지 찾기
+# 학과사이트 찾기
 def search_page_Parser(content):
-    # 강의실 번호 입력
+    # 학과사이트 입력
     content = content['action']['detailParams']['hakgwa ']["value"]
     content = ''.join(str(e) for e in content)
     content = content.replace(" ", "")
     try:
-        # 강의실 데이터 접근
+        # 학과사이트 데이터 접근
         json_data = open('hakgwa.json', 'r', encoding="utf-8").read()
         data = json.loads(json_data)
         title = ""
-        location_URL = ""
+        URL = ""
         description = ""
-        # 학과 데이터에서 강의실 찾기
+        # 학과사이트 데이터에서 강의실 찾기
         # 정확한 검색으로만 가능
         for i in data['data']:
             # 강의실 번호 혹은 교수 이름
