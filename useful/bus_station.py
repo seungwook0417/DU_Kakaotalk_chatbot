@@ -44,26 +44,50 @@ def find_bus_Paser(content):
             arriveInfo = bus_json['arriveInfo']
             # 정류소 이름
             busstopName = bus_json['busstopName']
-            if arriveInfo != []:
-                for a in arriveInfo:
-                    if a['TIMEGAP'] == '전' or a['TIMEGAP'] == '전전' or a['TIMEGAP'] == '전전전':
-                        data.append(
-                            a['BUSLINENO'] + " 버스🚌" +
-                            "\n지금 " + a['TIMEGAP'] + " 정류장에서 \n" + a['NOWBUSSTOPNAME'] + " 했어요" +
-                            "\n----------------------------------")
-                    else:
-                        data.append(
-                            a['BUSLINENO'] + " 버스🚌가" +
-                            "\n도착 정보: " + a['TIMEGAP'] + "전" +
-                            "\n지금 " + a['NOWBUSSTOPNAME'] + "에 있어요" +
-                            "\n----------------------------------")
 
-                member_text = '\n'.join(str(e) for e in data)
-                member_text = member_text.replace('<span style="color:#f26522;">(저상)</font>', "")
-                text = member_text
-                title = busstopName['BUSSTOPNAME'] + " 정류장 도착 정보입니다!\n----------------------------------\n"
+            if content == "영남대앞":
+                if arriveInfo != []:
+                    for a in arriveInfo:
+                        if a['BUSLINENO'] == "840" or a['BUSLINENO'] =='840<span style="color:#f26522;">(저상)</font>':
+                            if a['TIMEGAP'] == '전' or a['TIMEGAP'] == '전전' or a['TIMEGAP'] == '전전전':
+                                data.append(
+                                    a['BUSLINENO'] + " 버스🚌" +
+                                    "\n지금 " + a['TIMEGAP'] + " 정류장에서 \n" + a['NOWBUSSTOPNAME'] + " 했어요" +
+                                    "\n----------------------------------")
+                            else:
+                                data.append(
+                                    a['BUSLINENO'] + " 버스🚌가" +
+                                    "\n도착 정보: " + a['TIMEGAP'] + "전" +
+                                    "\n지금 " + a['NOWBUSSTOPNAME'] + "에 있어요" +
+                                    "\n----------------------------------")
+
+                    member_text = '\n'.join(str(e) for e in data)
+                    member_text = member_text.replace('<span style="color:#f26522;">(저상)</font>', "")
+                    text = member_text
+                    title = busstopName['BUSSTOPNAME'] + " 정류장 도착 정보입니다!\n----------------------------------\n"
+                else:
+                    title = busstopName['BUSSTOPNAME'] + "\n정류장의 도착 예정 정보가 없습니다."
             else:
-                title = busstopName['BUSSTOPNAME'] + "\n정류장의 도착 예정 정보가 없습니다."
+                if arriveInfo != []:
+                    for a in arriveInfo:
+                        if a['TIMEGAP'] == '전' or a['TIMEGAP'] == '전전' or a['TIMEGAP'] == '전전전':
+                            data.append(
+                                a['BUSLINENO'] + " 버스🚌" +
+                                "\n지금 " + a['TIMEGAP'] + " 정류장에서 \n" + a['NOWBUSSTOPNAME'] + " 했어요" +
+                                "\n----------------------------------")
+                        else:
+                            data.append(
+                                a['BUSLINENO'] + " 버스🚌가" +
+                                "\n도착 정보: " + a['TIMEGAP'] + "전" +
+                                "\n지금 " + a['NOWBUSSTOPNAME'] + "에 있어요" +
+                                "\n----------------------------------")
+
+                    member_text = '\n'.join(str(e) for e in data)
+                    member_text = member_text.replace('<span style="color:#f26522;">(저상)</font>', "")
+                    text = member_text
+                    title = busstopName['BUSSTOPNAME'] + " 정류장 도착 정보입니다!\n----------------------------------\n"
+                else:
+                    title = busstopName['BUSSTOPNAME'] + "\n정류장의 도착 예정 정보가 없습니다."
         else:
             title = "찾으시는 " + content + " 정류장 정보가 없습니다.\n교내 버스정류장 이름 확인후 재검색 부탁드립니다."
 
