@@ -31,12 +31,17 @@ def haksa_chedule_Parser(content):
     # 그외
     else:
         date = time.strftime('%Y-%m', time.localtime(time.time()))
-        month = ""
+        month = date.replace("-", "")
+        month = month[0:6]
         description = schedule_month_Parser(month)
 
     title = date + " 학사일정 안내"
     response = insert_card(title, description)
     response = insert_button_url(response,"전체 일정","https://daegu.ac.kr/schedule/detail?schedule_info_seq=1")
+    reply = make_reply('📅 오늘 학사일정', '오늘 학사일정')
+    response = insert_replies(response, reply)
+    reply = make_reply('📅 다음달 학사일정', '다음달 학사일정')
+    response = insert_replies(response, reply)
     response = answer(response)
     return response
 

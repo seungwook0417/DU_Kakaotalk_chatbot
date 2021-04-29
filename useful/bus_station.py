@@ -12,10 +12,13 @@ headers = {
 
 # 교내 시내버스 정류장 도착정보
 # 내리리, 비호생활관, 비호생활관 건너, 점자도서관, 점자도서관 건너, 창파도서관, 창파도서관 건너,
-# 성산홍, 성산홀 건너, 복지관, 복지관 건너, 대구대 종점, 대구대(정문1), 대구대(정문2), 대구대서문, 내리리입구
+# 성산홍, 성산홀 건너, 복지관, 복지관 건너, 대구대 종점, 대구대(정문1), 대구대(정문2), 대구대서문, 내리리입구, 내리리입구 건너
 
 def find_bus_Paser(content):
-    content = content['action']['detailParams']['find_bus']["value"]
+    try:
+        content = content['action']['detailParams']['find_bus']["value"]
+    except:
+        content = content['userRequest']['utterance']
     content = ''.join(str(e) for e in content)
     content = content.replace(" ", "")
     try:
