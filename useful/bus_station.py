@@ -64,9 +64,12 @@ def find_bus_Paser(content):
                     member_text = '\n'.join(str(e) for e in data)
                     member_text = member_text.replace('<span style="color:#f26522;">(저상)</font>', "")
                     text = member_text
-                    title = busstopName['BUSSTOPNAME'] + " 정류장 도착 정보입니다!\n----------------------------------\n"
+                    if text != "":
+                        title = busstopName['BUSSTOPNAME'] + " 정류장 도착 정보입니다!\n----------------------------------\n"
+                    else:
+                        title = busstopName['BUSSTOPNAME'] + " 정류장의 \n840 버스 도착 예정 정보가 없습니다."
                 else:
-                    title = busstopName['BUSSTOPNAME'] + "\n정류장의 도착 예정 정보가 없습니다."
+                    title = busstopName['BUSSTOPNAME'] + " 정류장의 \n840 버스 도착 예정 정보가 없습니다."
             else:
                 if arriveInfo != []:
                     for a in arriveInfo:

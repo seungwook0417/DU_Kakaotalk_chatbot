@@ -5,7 +5,7 @@ from setting.answer_main import answer
 # 학과사이트 찾기
 def search_page_Parser(content):
     # 학과사이트 입력
-    content = content['action']['detailParams']['hakgwa ']["value"]
+    content = content['action']['detailParams']['hakgwa']["value"]
     content = ''.join(str(e) for e in content)
     content = content.replace(" ", "")
     try:
@@ -17,11 +17,10 @@ def search_page_Parser(content):
         description = ""
         # 학과사이트 데이터에서 강의실 찾기
         # 정확한 검색으로만 가능
-        for i in data['data']:
-            # 강의실 번호 혹은 교수 이름
-            if content == i['name']:
-                title = i['id']
-                description = i['name']
+        for i in data['hakgwa']:
+            if content in i['name']:
+                title = content+" 페이지를 찾았어요!"
+                description = i['id']+"\n"+i['name']
                 URL = i['url']
                 break;
 
@@ -30,7 +29,7 @@ def search_page_Parser(content):
             response = answer(response)
         else:
             response = insert_card(title, description)
-            response = insert_button_url(response, "학과 바로가기", URL)
+            response = insert_button_url(response, "학과 사이트 바로가기", URL)
             response = answer(response)
         return response
 

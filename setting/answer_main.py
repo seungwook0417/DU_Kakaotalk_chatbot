@@ -10,6 +10,8 @@ def answer(response):
     response = insert_replies(response, reply)
     reply = make_reply('📢 학사공지', '학사공지 뭐야?')
     response = insert_replies(response, reply)
+    reply = make_reply('🔗 학과사이트 조회', '학과사이트 조회')
+    response = insert_replies(response, reply)
     reply = make_reply('🚌 교내셔틀버스', '교내셔틀버스 정보')
     response = insert_replies(response, reply)
     reply = make_reply('📞 연락처 검색', '부서 연락처 뭐야?')

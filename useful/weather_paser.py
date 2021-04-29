@@ -1,5 +1,6 @@
 # 대구대학교 날씨 서비스 제공 예정
 from setting.card import *
+from setting.answer_main import *
 import requests
 from bs4 import BeautifulSoup
 
@@ -27,7 +28,7 @@ def naver_weather_parser():
         full_text = full_text.replace("˚", "℃")
         title = "[☀대구대 실시간 날씨 정보예요!!☀]"
         response = insert_card(title, full_text, image_url="https://i.esdrop.com/d/QsgT1vEadT.png")
-
+        response = answer(response)
         return response
     except:
         pass
