@@ -16,6 +16,8 @@ def answer(response):
     response = insert_replies(response, reply)
     reply = make_reply('📞 연락처 검색', '부서 연락처 뭐야?')
     response = insert_replies(response, reply)
+    reply = make_reply('⛅ 대구대 현재 날씨', '대구대 날씨')
+    response = insert_replies(response, reply)
     reply = make_reply('오류😰 및 건의사항🤔 제보', '오류제보')
     response = insert_replies(response, reply)
     return response
