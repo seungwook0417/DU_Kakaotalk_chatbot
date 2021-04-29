@@ -84,7 +84,8 @@ def search_buseo():
 # 학과 페이지 검색 (추후 제작)
 @app.route("/page", methods=['POST'])
 def page():
-    response = " "
+    content = request.get_json()
+    response = search_page_Parser(content)
     return jsonify(response)
 
 

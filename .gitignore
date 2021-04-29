@@ -4,3 +4,4 @@ data.json
 *.xml
 *.iml
 __pycache__/__init__.cpython-38.pyc
+/hakgwa.json
