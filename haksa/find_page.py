@@ -22,13 +22,14 @@ def search_page_Parser(content):
                 title = content+" 페이지를 찾았어요!"
                 description = i['id']+"\n"+i['name']
                 URL = i['url']
+                img_url = i['image_url']
                 break;
 
         if title == "":
             response = insert_text("해당 학과를 찾지 못했어요\n 아래와 같은 양식으로 검색해주세요❗ \n * 직업재할학과\n * 컴퓨터정보공학부(컴퓨터공학전공)\n* 보건행정학과(야간) 😊")
             response = answer(response)
         else:
-            response = insert_card(title, description)
+            response = insert_card(title, description,img_url)
             response = insert_button_url(response, "학과 사이트 바로가기", URL)
             response = answer(response)
         return response
