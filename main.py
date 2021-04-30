@@ -77,7 +77,7 @@ def search_member():
 @app.route("/search_buseo", methods=['POST'])
 def search_buseo():
     content = request.get_json()
-    response = search_member_Parser(content)
+    response = search_buseo_Parser(content)
     return jsonify(response)
 
 

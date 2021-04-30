@@ -53,7 +53,7 @@ def DU_search_Parser(content,condition):
                     "이름 : " + a['name_kr'] +
                     "\n부서 : " + a['buseo'] +
                     "\n직책 : " + a['user_upmu'] +
-                    "\n전화번호: 053-850-" + a['user_telno']+
+                    "\n전화번호: 053-850-" + a['user_telno'] +
                     "\n----------------------------------")
 
             member_text = '\n'.join(str(e) for e in data)
