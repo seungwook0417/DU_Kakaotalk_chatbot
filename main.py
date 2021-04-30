@@ -105,7 +105,7 @@ def message():
     return jsonify(response)
 
 
-# 날씨 검색 2020.04.28 BDH
+# 날씨 검색
 @app.route('/weather', methods=['POST'])
 def weather():
     response = naver_weather_parser()
