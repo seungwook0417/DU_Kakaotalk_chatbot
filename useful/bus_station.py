@@ -45,7 +45,7 @@ def find_bus_Paser(content):
             # 정류소 이름
             busstopName = bus_json['busstopName']
 
-            if content == "영남대앞":
+            if content == "영남대앞" or content == "압량읍사무소" or content == "압량읍사무소건너":
                 if arriveInfo != []:
                     for a in arriveInfo:
                         if a['BUSLINENO'] == "840" or a['BUSLINENO'] =='840<span style="color:#f26522;">(저상)</font>':

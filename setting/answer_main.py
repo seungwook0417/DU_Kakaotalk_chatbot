@@ -2,9 +2,9 @@ from setting.card import insert_text, make_reply, insert_replies
 
 # 퀵 리플라이 메인
 def answer(response):
-    reply = make_reply('🏫 강의실 검색', '강의실 검색')
-    response = insert_replies(response, reply)
     reply = make_reply('🚍 시내버스 도착정보', '시내버스 도착정보')
+    response = insert_replies(response, reply)
+    reply = make_reply('🏫 강의실 검색', '강의실 검색')
     response = insert_replies(response, reply)
     reply = make_reply('📅 학사일정', '학사일정 뭐야?')
     response = insert_replies(response, reply)
