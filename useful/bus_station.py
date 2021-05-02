@@ -104,13 +104,7 @@ def find_bus_Paser(content):
                 for a in arriveInfo:
                     bus_name = a['BUSLINENO'].replace('<span style="color:#f26522;">(저상)</font>', "")
                     bus_dest = ""
-
-                    # 도착 예정시간
-                    arrive_time = re.findall("\d+", a['TIMEGAP'])
-                    arrive_time = '\n'.join(str(e) for e in arrive_time)
-                    now = datetime.datetime.now()
-                    now = now + datetime.timedelta(hours=9, minutes=int(arrive_time))
-
+            
                     # 행선지 표기 대상이면 추가 텍스트 삽입
                     if bus_name in display_bus_dest_list:
                         current_line_id = display_bus_dest_list[bus_name]
@@ -134,8 +128,13 @@ def find_bus_Paser(content):
                             "\n지금 " + a['TIMEGAP'] + " 정류장에서 \n" + a['NOWBUSSTOPNAME'] + " 했어요" +
                             "\n----------------------------------")
                     else:
+                        # 도착시간
+                        arrive_time = re.findall("\d+", a['TIMEGAP'])
+                        arrive_time = '\n'.join(str(e) for e in arrive_time)
+                        now = datetime.datetime.now()
+                        now = now + datetime.timedelta(hours=9, minutes=int(arrive_time))
                         data.append(
-                            a['BUSLINENO'] + bus_dest + " 버스🚌가" +
+                            a['BUSLINENO'] + bus_dest + " 버스🚌" +
                             "\n도착 정보: " + a['TIMEGAP'] + "전(" + now.strftime('%H시:%M분)') +
                             "\n지금 " + a['NOWBUSSTOPNAME'] + "에 있어요" +
                             "\n----------------------------------")
