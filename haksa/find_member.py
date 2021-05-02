@@ -10,10 +10,11 @@ headers = {
 # 학교 당담자 부서, 이름 안내 문구 제공
 def search_Parser():
     title = "부서 연락처 안내"
-    description = "부서 연락처는 담당자의 \n이름, 부서(소속)로 확인해드릴 수 있어요. \n아래 항목에서 선택해주세요.😀"
+    description = "부서 연락처는 담당자의 \n이름, 부서(소속), 연락처(뒷번호 4자리)로 확인해드릴 수 있어요. \n아래 항목에서 선택해주세요.😀"
     response = insert_card(title,description)
     response = insert_button_text(response,"이름","이름")
-    response = insert_button_text(response, "부서(소속)", "부서(소속)")
+    response = insert_button_text(response, "부서(소속)", "부서(소속)",)
+    response = insert_button_text(response, "연락처", "연락처", )
     return response
 
 # 학교 당담자 이름으로 검색
@@ -31,6 +32,16 @@ def search_buseo_Parser(content):
     content = content['action']['detailParams']['search_name']["value"]
     content = ''.join(str(e) for e in content)
     condition = 'buseo'
+    text = DU_search_Parser(content, condition)
+    response = insert_text(text)
+    response = answer(response)
+    return response
+
+# 학교 부서로 섬색
+def search_telno_Parser(content):
+    content = content['action']['detailParams']['search_name']["value"]
+    content = ''.join(str(e) for e in content)
+    condition = 'user_telno'
     text = DU_search_Parser(content, condition)
     response = insert_text(text)
     response = answer(response)
