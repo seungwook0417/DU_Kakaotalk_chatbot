@@ -80,6 +80,12 @@ def search_buseo():
     response = search_buseo_Parser(content)
     return jsonify(response)
 
+# 전화번호로 부서 찾기
+@app.route("/search_telno", methods=['POST'])
+def search_telno():
+    content = request.get_json()
+    response = search_buseo_Parser(content)
+    return jsonify(response)
 
 # 학과 페이지 검색
 @app.route("/page", methods=['POST'])
