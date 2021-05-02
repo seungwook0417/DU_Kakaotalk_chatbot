@@ -3,12 +3,10 @@ from flask import Flask, request, jsonify
 
 # Internal Module
 from setting.card import *  # 카카오톡 데이터 전송 양식
-from setting.welcome import *  # 환영인사
 from setting.answer_main import *  # 퀵 리플라이 지정
 from haksa.haksa_nofi import *  # 학사공지 검색
 from haksa.haksa_schedule import *  # 학사일정 검색
 from haksa.find_lecture_room import *  # 강의실 검색
-from haksa.find_building_room import *  # 편의시설 검색
 from haksa.find_member import *  # 구성원 검색
 from haksa.find_page import *  # 학과 페이지 검색
 from useful.bus_station import *  # 버스정류장 검색
@@ -52,7 +50,7 @@ def find_lecture():
     return jsonify(response)
 
 
-# 편의시설 검색 (추후 제작)
+# 편의시설 검색
 @app.route("/find_building", methods=['POST'])
 def find_building():
     content = request.get_json()
