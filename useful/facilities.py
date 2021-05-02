@@ -3,7 +3,7 @@ from setting.card import *
 from setting.answer_main import answer
 
 def facilities_parser(content):
-    # 강의실 번호 입력
+
     content = content['action']['detailParams']['facilities']["value"]
     content = ''.join(str(e) for e in content)
     content = content.replace(" ", "")
@@ -15,7 +15,7 @@ def facilities_parser(content):
         title = ""
         description = ""
         for i in data['facilities']:
-            if content in i['id'] or content in i['name'] or content in i['sectors']:
+            if content in i['sectors']:
                 title = str(i['name']) + " 입니다."
                 str_f = ""
                 str_op = ""
@@ -33,7 +33,7 @@ def facilities_parser(content):
                 break
 
         if title == "":
-            response = insert_text("해당 편의시설을 찾지 못했어요\n ex)편의점 혹은 매점, 복사\n\n혹시 강의실이 검색이 안되나요?😢\n오류제보 통해 제보해주세요!😊")
+            response = insert_text("해당 편의시설을 찾지 못했어요\n ex)편의점 혹은 매점, 복사\n\n혹시 편의시설 검색이 안되나요?😢\n오류제보 통해 제보해주세요!😊")
             response = answer(response)
         else:
             response = insert_card(title, description, url)
