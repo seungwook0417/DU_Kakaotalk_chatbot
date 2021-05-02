@@ -8,6 +8,7 @@ def facilities_parser(content):
     content = ''.join(str(e) for e in content)
     content = content.replace(" ", "")
     url = ""
+    facil = []
 
     try:
         json_data = open('./facil_info.json', 'r', encoding="utf-8").read()
@@ -30,15 +31,19 @@ def facilities_parser(content):
 
                 description = i['id'] +" " + str_f +"에 있어요!" + str_op + str_pn
                 location_URL = 'https://map.kakao.com/link/to/' + str(i['type']) + '/'
-                break
+                facil.append(title)
+                facil.append(description)
+                facil.append(location_URL)
 
-        if title == "":
+        if len(facil)==0:
             response = insert_text("해당 편의시설을 찾지 못했어요\n ex)편의점 혹은 매점, 복사\n\n혹시 편의시설 검색이 안되나요?😢\n오류제보 통해 제보해주세요!😊")
             response = answer(response)
         else:
-            response = insert_card(title, description, url)
-            response = insert_button_url(response, "길찾기", location_URL)
+            for t in range(0, int(len(facil) / 3)):
+                response = insert_carousel_card(new_response=carouselbase_response, title=facil[(t * 3)], description=facil[(t * 3 + 1)])
+                response = insert_carousel_button_url(new_response=response, label="길찾기", web_url=facil[(t * 3 + 2)])
             response = answer(response)
+
         return response
 
     except:
