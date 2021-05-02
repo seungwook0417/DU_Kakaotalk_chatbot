@@ -84,7 +84,7 @@ def search_buseo():
 @app.route("/search_telno", methods=['POST'])
 def search_telno():
     content = request.get_json()
-    response = search_buseo_Parser(content)
+    response = search_telno_Parser(content)
     return jsonify(response)
 
 # 학과 페이지 검색
