@@ -3,19 +3,13 @@ import json
 from setting.card import *
 from setting.answer_main import answer
 import datetime
+import re
 
 headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.152 Safari/537.36",
     "Accept-Language": "ko",
     "Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8",
 }
-
-
-# def to_kst(time_object):
-#     now = datetime.datetime.now()
-#     return now + datetime.timedelta(hours=9, minutes=time_object)
-# arrive_time.strftime('%H시:%M분 도착 예정)') +
-
 
 # tools
 # 버스 실시간 정보 조회
@@ -110,9 +104,13 @@ def find_bus_Paser(content):
                 for a in arriveInfo:
                     bus_name = a['BUSLINENO'].replace('<span style="color:#f26522;">(저상)</font>', "")
                     bus_dest = ""
-                    arrive_time = a['TIMEGAP']
+
+                    # 도착 예정시간
+                    arrive_time = re.findall("\d+", a['TIMEGAP'])
+                    arrive_time = '\n'.join(str(e) for e in arrive_time)
                     now = datetime.datetime.now()
-                    now = now + datetime.timedelta(hours=9, minutes=arrive_time)
+                    now = now + datetime.timedelta(hours=9, minutes=int(arrive_time))
+
                     # 행선지 표기 대상이면 추가 텍스트 삽입
                     if bus_name in display_bus_dest_list:
                         current_line_id = display_bus_dest_list[bus_name]
@@ -138,7 +136,7 @@ def find_bus_Paser(content):
                     else:
                         data.append(
                             a['BUSLINENO'] + bus_dest + " 버스🚌가" +
-                            "\n도착 정보: " + a['TIMEGAP'] + "전(" + now.strftime('%H시:%M분 도착 예정)') +
+                            "\n도착 정보: " + a['TIMEGAP'] + "전(" + now.strftime('%H시:%M분)') +
                             "\n지금 " + a['NOWBUSSTOPNAME'] + "에 있어요" +
                             "\n----------------------------------")
 
