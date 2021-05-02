@@ -8,13 +8,14 @@ def facilities_parser(content):
     content = ''.join(str(e) for e in content)
     content = content.replace(" ", "")
     url = ""
-    facil = []
 
     try:
         json_data = open('./facil_info.json', 'r', encoding="utf-8").read()
         data = json.loads(json_data)
         title = ""
         description = ""
+        response = {'version': '2.0', 'template': {'outputs': [{"carousel": {"type": "basicCard", "items": []}}], 'quickReplies': []}}
+        facil = []
         for i in data['facilities']:
             if content in i['sectors']:
                 title = str(i['name']) + " 입니다."
@@ -40,11 +41,10 @@ def facilities_parser(content):
             response = answer(response)
         else:
             for t in range(0, int(len(facil) / 3)):
-                response = insert_carousel_card(new_response=carouselbase_response, title=facil[(t * 3)], description=facil[(t * 3 + 1)])
+                response = insert_carousel_card(new_response=response, title=facil[(t * 3)], description=facil[(t * 3 + 1)])
                 response = insert_carousel_button_url(new_response=response, label="길찾기", web_url=facil[(t * 3 + 2)])
             response = answer(response)
 
         return response
-
     except:
         pass
