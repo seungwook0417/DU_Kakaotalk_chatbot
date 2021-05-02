@@ -77,8 +77,7 @@ def schedule_month_Parser(month):
             data.append(
                 "날짜 : " + a['schedule_start_date'] + "~" + a['schedule_end_date'] + "\n일정 : " + a['schedule_title'] + "\n")
         description = '\n'.join(str(e) for e in data)
-        return description
     except:
         description = "학교 서버에 문제가 있나봐요 \n지금은 서비스를 이용하실수 없습니다."
-        return description
-        pass
+
+    return description
