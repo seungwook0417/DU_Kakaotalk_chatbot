@@ -11,9 +11,10 @@ headers = {
 }
 
 
-def to_kst(time_object):
-    now = datetime.datetime.now()
-    return now + datetime.timedelta(hours=9, minutes=time_object)
+# def to_kst(time_object):
+#     now = datetime.datetime.now()
+#     return now + datetime.timedelta(hours=9, minutes=time_object)
+# arrive_time.strftime('%H시:%M분 도착 예정)') +
 
 
 # tools
@@ -109,7 +110,7 @@ def find_bus_Paser(content):
                 for a in arriveInfo:
                     bus_name = a['BUSLINENO'].replace('<span style="color:#f26522;">(저상)</font>', "")
                     bus_dest = ""
-                    arrive_time = to_kst(int(a['TIMEGAP']))
+                    #arrive_time = to_kst(int(a['TIMEGAP']))
 
                     # 행선지 표기 대상이면 추가 텍스트 삽입
                     if bus_name in display_bus_dest_list:
@@ -136,7 +137,7 @@ def find_bus_Paser(content):
                     else:
                         data.append(
                             a['BUSLINENO'] + bus_dest + " 버스🚌가" +
-                            "\n도착 정보: " + a['TIMEGAP'] + "전(" + arrive_time.strftime('%H시:%M분 도착 예정)') +
+                            "\n도착 정보: " + a['TIMEGAP'] + "전(" +
                             "\n지금 " + a['NOWBUSSTOPNAME'] + "에 있어요" +
                             "\n----------------------------------")
 
