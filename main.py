@@ -14,6 +14,7 @@ from haksa.find_page import *  # 학과 페이지 검색
 from useful.bus_station import *  # 버스정류장 검색
 from useful.error_report import *  # 오류보고 보고서
 from useful.weather_paser import *  # 날씨 검색
+from useful.facilities import *
 
 app = Flask(__name__)
 
@@ -54,7 +55,8 @@ def find_lecture():
 # 편의시설 검색 (추후 제작)
 @app.route("/find_building", methods=['POST'])
 def find_building():
-    response = " "
+    content = request.get_json()
+    response = facilities_parser(content)
     return jsonify(response)
 
 
