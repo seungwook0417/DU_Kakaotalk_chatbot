@@ -2,21 +2,25 @@ import json
 from setting.card import *
 from setting.answer_main import answer
 
+# 편의시설 찾기
 def facilities_parser(content):
-
+    # 편의시설 종류 입력
     content = content['action']['detailParams']['facilities']["value"]
     content = ''.join(str(e) for e in content)
     content = content.replace(" ", "")
     url = ""
 
     try:
+        # 편의시설 데이터 접근
         json_data = open('./facil_info.json', 'r', encoding="utf-8").read()
         data = json.loads(json_data)
         title = ""
         description = ""
         response = {'version': '2.0', 'template': {'outputs': [{"carousel": {"type": "basicCard", "items": []}}], 'quickReplies': []}}
         facil = []
+        # 편의시설 종류에 대한 여러 개의 값에 대비하여 2개 이상의 데이터 검색 시 carousel형태 출력
         for i in data['facilities']:
+            # 편의시설 종목
             if content in i['sectors']:
                 title = str(i['name']) + " 입니다."
                 str_f = ""
@@ -32,6 +36,7 @@ def facilities_parser(content):
 
                 description = i['id'] +" " + str_f +"에 있어요!" + str_op + str_pn
                 location_URL = 'https://map.kakao.com/link/to/' + str(i['type']) + '/'
+
                 facil.append(title)
                 facil.append(description)
                 facil.append(location_URL)
