@@ -16,6 +16,7 @@ def lecture_Parser(content):
         location_URL = ""
         description = ""
         lecture_list = []
+        response = {'version': '2.0','template': {'outputs': [{"carousel": {"type": "basicCard", "items": []}}], 'quickReplies': []}}
         # 강의실 데이터에서 강의실 찾기
         for i in data['data']:
             # 강의실 번호 혹은 교수 이름
