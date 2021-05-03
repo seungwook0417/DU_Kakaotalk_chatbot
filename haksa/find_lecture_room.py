@@ -15,23 +15,29 @@ def lecture_Parser(content):
         title = ""
         location_URL = ""
         description = ""
+        lecture_list = []
         # 강의실 데이터에서 강의실 찾기
-        # 반복문으로 첫번째 값만 찾는데 학과가 여러개 검색될 경우 선택해서 정보가 나오게 변경 필요
         for i in data['data']:
             # 강의실 번호 혹은 교수 이름
             if content in i['id'] or content in i['name']:
                 title = i['name'] + " 입니다."
                 description = i['location'] + " " + i['floor'] + "\n"
                 location_URL = 'https://map.kakao.com/link/to/' + str(i['type']) + '/'
-                break;
+                lecture_list.append(title)
+                lecture_list.append(description)
+                lecture_list.append(location_URL)
 
-        if title == "":
+        if len(lecture_list) == 0:
             response = insert_text("해당 강의실을 찾지 못했어요\n ex)공7506 또는 000\n\n혹시 강의실이 검색이 안되나요?😢\n오류제보 통해 제보해주세요!😊")
             response = answer(response)
         else:
-            response = insert_card(title, description)
-            response = insert_button_url(response, "길찾기", location_URL)
+            for t in range(0, int(len(lecture_list) / 3)):
+                response = insert_carousel_card(new_response=response, title=lecture_list[(t * 3)],description=lecture_list[(t * 3 + 1)])
+                response = insert_carousel_button_url(new_response=response, label="길찾기",web_url=lecture_list[(t * 3 + 2)])
+                if t == 6:
+                    break
             response = answer(response)
+
         return response
 
     except:
