@@ -15,8 +15,9 @@ def facilities_parser(content):
         data = json.loads(json_data)
         title = ""
         description = ""
+        location_URL = ""
+        facil_list = []
         response = {'version': '2.0', 'template': {'outputs': [{"carousel": {"type": "basicCard", "items": []}}], 'quickReplies': []}}
-        facil = []
         # 편의시설 종류에 대한 여러 개의 값에 대비하여 2개 이상의 데이터 검색 시 carousel형태 출력
         for i in data['facilities']:
             # 편의시설 종목
@@ -36,17 +37,18 @@ def facilities_parser(content):
                 description = i['id'] +" " + str_f +"에 있어요!" + str_op + str_pn
                 location_URL = 'https://map.kakao.com/link/to/' + str(i['type']) + '/'
 
-                facil.append(title)
-                facil.append(description)
-                facil.append(location_URL)
+                facil_list.append(title)
+                facil_list.append(description)
+                facil_list.append(location_URL)
 
-        if len(facil)==0:
+        if len(facil_list)==0:
             response = insert_text("해당 편의시설을 찾지 못했어요\n ex)편의점 혹은 매점, 복사\n\n혹시 편의시설 검색이 안되나요?😢\n오류제보 통해 제보해주세요!😊")
             response = answer(response)
         else:
-            for t in range(0, int(len(facil) / 3)):
-                response = insert_carousel_card(new_response=response, title=facil[(t * 3)], description=facil[(t * 3 + 1)])
-                response = insert_carousel_button_url(new_response=response, label="길찾기", web_url=facil[(t * 3 + 2)])
+            # 반복 횟수만큼 카드 개수 증가
+            for t in range(0, int(len(facil_list) / 3)):
+                response = insert_carousel_card(new_response=response, title=facil_list[(t * 3)], description=facil_list[(t * 3 + 1)])
+                response = insert_carousel_button_url(new_response=response, label="길찾기", web_url=facil_list[(t * 3 + 2)])
                 # 카드 최대개수 7개 제한
                 if t == 6:
                     break
