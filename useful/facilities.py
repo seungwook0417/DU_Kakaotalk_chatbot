@@ -8,7 +8,6 @@ def facilities_parser(content):
     content = content['action']['detailParams']['facilities']["value"]
     content = ''.join(str(e) for e in content)
     content = content.replace(" ", "")
-    url = ""
 
     try:
         # 편의시설 데이터 접근
