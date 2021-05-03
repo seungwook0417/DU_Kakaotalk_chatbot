@@ -153,6 +153,8 @@ def find_bus_Paser(content):
             response = answer(response)
         else:
             response = insert_text(title + text)
+            response = plus_card(response,"전체 버스 보기","")
+            response = insert_button_url(response, "바로가기", "http://bus.dryrain.me:5000/bus.html#dryrain39/"+BUSSTOPID)
             response = answer(response)
     except:
         pass
