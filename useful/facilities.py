@@ -48,6 +48,9 @@ def facilities_parser(content):
             for t in range(0, int(len(facil) / 3)):
                 response = insert_carousel_card(new_response=response, title=facil[(t * 3)], description=facil[(t * 3 + 1)])
                 response = insert_carousel_button_url(new_response=response, label="길찾기", web_url=facil[(t * 3 + 2)])
+                # 카드 최대개수 7개 제한
+                if t == 6:
+                    break
             response = answer(response)
 
         return response
