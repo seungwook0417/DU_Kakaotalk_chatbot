@@ -35,6 +35,7 @@ def lecture_Parser(content):
             for t in range(0, int(len(lecture_list) / 3)):
                 response = insert_carousel_card(new_response=response, title=lecture_list[(t * 3)],description=lecture_list[(t * 3 + 1)])
                 response = insert_carousel_button_url(new_response=response, label="길찾기",web_url=lecture_list[(t * 3 + 2)])
+                # 카드 최대개수 7개 제한
                 if t == 6:
                     break
             response = answer(response)
