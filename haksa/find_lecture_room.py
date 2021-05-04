@@ -32,6 +32,7 @@ def lecture_Parser(content):
             response = insert_text("해당 강의실을 찾지 못했어요\n ex)공7506 또는 000\n\n혹시 강의실이 검색이 안되나요?😢\n오류제보 통해 제보해주세요!😊")
             response = answer(response)
         else:
+            # 케로셀 카드 삽입 반복문
             for t in range(0, int(len(lecture_list) / 3)):
                 response = insert_carousel_card(new_response=response, title=lecture_list[(t * 3)],description=lecture_list[(t * 3 + 1)])
                 response = insert_carousel_button_url(new_response=response, label="길찾기",web_url=lecture_list[(t * 3 + 2)])
