@@ -49,6 +49,7 @@ def haksa_chedule_Parser(content):
 def schedule_Parser(date):
     try:
         url = 'https://daegu.ac.kr/main/schedule/data'
+        # 학교 사이트 파람 전송 및 해당 데이터 파싱
         response = requests.post(url=url, headers=headers, data={
             'schedule_start_date': date
         })

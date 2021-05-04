@@ -51,6 +51,7 @@ def search_telno_Parser(content):
 def DU_search_Parser(content,condition):
 
     url = 'https://www.daegu.ac.kr/customer/emp/list'
+    # 학과 홈페이지에 원하는 파람 전송 및 파싱
     response = requests.post(url=url, headers=headers, data={
         'searchCondition': condition,
         'searchKeyword': content,
