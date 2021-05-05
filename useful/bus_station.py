@@ -109,7 +109,8 @@ def find_bus_Paser(content):
                 "708": [],
                 "818(대구대)": [],
                 "818(황제)": [],
-                "814" : []
+                "814" : [],
+                "급행5" : []
             }
             #캐시 리스트 방식 보류
             # display_bus_num_list = {
@@ -171,7 +172,7 @@ def find_bus_Paser(content):
                         a['TIMEGAP'] = a['TIMEGAP'].replace("분", "분 후")
 
                         display_bus_num_list[bus_name + bus_dest].append(
-                            f"- {a['TIMEGAP']}({arrive_time.strftime('%H시:%M분)도착 예정')} \n   Now: {a['NOWBUSSTOPNAME']}\n")
+                            f"- {a['TIMEGAP']}({arrive_time.strftime('%H시 %M분)도착 예정')} \n   Now: {a['NOWBUSSTOPNAME']}\n")
 
                         response = {'version': '2.0', 'template': {
                             'outputs': [{"simpleText": {"text": busstopName['BUSSTOPNAME'] + " 정류장 도착 정보"}},
