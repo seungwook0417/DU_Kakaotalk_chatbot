@@ -108,7 +108,8 @@ def find_bus_Paser(content):
                 "818-1": [],
                 "708": [],
                 "818(대구대)": [],
-                "818(황제)": []
+                "818(황제)": [],
+                "814" : []
             }
             #캐시 리스트 방식 보류
             # display_bus_num_list = {
@@ -119,7 +120,7 @@ def find_bus_Paser(content):
                 for a in arriveInfo:
                     bus_name = a['BUSLINENO'].replace('<span style="color:#f26522;">(저상)</font>', "")
                     bus_dest = ""
-
+                    print(bus_name)
                     # 행선지 표기 대상이면 추가 텍스트 삽입
                     if bus_name in display_bus_dest_list:
                         current_line_id = display_bus_dest_list[bus_name]
@@ -162,7 +163,7 @@ def find_bus_Paser(content):
                 # response = answer(response)
 
                     if bus_name + bus_dest in display_bus_num_list:
-                        display_bus_num_list[bus_name + bus_dest] = []
+                        #display_bus_num_list[bus_name + bus_dest] = []
 
                         if a['NOWBUSSTOPNAME'] == "출발":
                             a['NOWBUSSTOPNAME'] = "정류소 출발"
