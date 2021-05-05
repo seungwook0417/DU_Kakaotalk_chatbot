@@ -156,6 +156,11 @@ def find_bus_Paser(content):
                         if value != []:
                             value = '\n'.join(str(e) for e in value)
                             response = insert_carousel_card(response, "🚌" + key, value)
+
+                    response = answer(response)
+                else:
+                    title = busstopName['BUSSTOPNAME'] + "\n정류장의 도착 예정 정보가 없습니다."
+                    response = insert_text(title)
                     response = answer(response)
 
                 # 캐시 리스트 방식 보류
@@ -179,16 +184,19 @@ def find_bus_Paser(content):
                 #         value = '\n'.join(str(e) for e in value)
                 #         response = insert_carousel_card(response, "🚌" + key, value)
                 # response = answer(response)
+                #                 else:
+                #                     title = busstopName['BUSSTOPNAME'] + "\n정류장의 도착 예정 정보가 없습니다."
+                #                     response = insert_text(title)
+                #                     response = answer(response)
         else:
             title = busstopName['BUSSTOPNAME'] + "\n정류장의 도착 예정 정보가 없습니다."
             response = insert_text(title)
             response = answer(response)
 
-        # 미안하지만 잠시 뺌(건우 버스 사이트)
-        # response = plus_card(response,"전체 버스 보기","")
-        # response = insert_button_url(response, "바로가기", "http://bus.dryrain.me:5000/bus.html#"+busstopName['BUSSTOPNAME']+"/"+BUSSTOPID)
-        # response = answer(response)
-
+            # 미안하지만 잠시 뺌(건우 버스 사이트)
+            # response = plus_card(response,"전체 버스 보기","")
+            # response = insert_button_url(response, "바로가기", "http://bus.dryrain.me:5000/bus.html#"+busstopName['BUSSTOPNAME']+"/"+BUSSTOPID)
+            # response = answer(response)
     except:
         pass
 
