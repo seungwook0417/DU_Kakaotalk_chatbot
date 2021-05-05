@@ -53,13 +53,13 @@ def get_bus_direction(car_no, line_node_list):
 # 성산홍, 성산홀 건너, 복지관, 복지관 건너, 대구대 종점, 대구대(정문1), 대구대(정문2), 대구대서문, 내리리입구, 내리리입구 건너
 
 def find_bus_Paser(content):
-    try:
+    try: #버스 정보 입력
         content = content['action']['detailParams']['find_bus']["value"]
     except:
         content = content['userRequest']['utterance']
     content = ''.join(str(e) for e in content)
     content = content.replace(" ", "")
-    try:
+    try: #버스정보 데이터 접근
         json_data = open('data.json', 'r', encoding="utf-8").read()
         data = json.loads(json_data)
         text = ""
@@ -69,7 +69,7 @@ def find_bus_Paser(content):
                 BUSSTOPID = i['BUSSTOPID']
                 break
 
-        if BUSSTOPID != "":
+        if BUSSTOPID != "": #경산시 교통정보센터 API 사용
             url = 'http://its.gbgs.go.kr/bus/getMapBusstopInfo'
             response = requests.post(url=url, headers=headers, data={
                 'BUSSTOPID': BUSSTOPID
@@ -178,6 +178,7 @@ def find_bus_Paser(content):
                             'outputs': [{"simpleText": {"text": busstopName['BUSSTOPNAME'] + " 정류장 도착 정보"}},
                                         {"carousel": {"type": "basicCard", "items": []}}], 'quickReplies': []}}
 
+                            # 여러 결과값 출력을 위한 carousel 카드 사용
                         for key, value in sorted(display_bus_num_list.items(),reverse=True):
                             if value != []:
                                 value = '\n'.join(str(e) for e in value)
