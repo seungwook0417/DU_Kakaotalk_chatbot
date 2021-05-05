@@ -101,17 +101,18 @@ def find_bus_Paser(content):
             }
 
             # 묶음 표기할 리스트. 버스번호
-            # display_bus_num_list = {
-            #     "840(영남대)": [],
-            #     "840(하양)": [],
-            #     "818-1": [],
-            #     "708": [],
-            #     "818(대구대)": [],
-            #     "818(황제)": []
-            # }
             display_bus_num_list = {
-
+                "840(영남대)": [],
+                "840(하양)": [],
+                "818-1": [],
+                "708": [],
+                "818(대구대)": [],
+                "818(황제)": []
             }
+            # 캐시 리스트 방식 보류
+            # display_bus_num_list = {
+            #
+            # }
 
             if arriveInfo != []:
                 for a in arriveInfo:
@@ -138,9 +139,9 @@ def find_bus_Paser(content):
                     arrive_time = a['PREDICTTIME']
                     arrive_time = datetime.strptime(arrive_time, "%Y%m%d%H%M%S")
 
-                    # 새로운 디자인 삽입
-                    if bus_name + bus_dest not in display_bus_num_list:
-                        display_bus_num_list[bus_name + bus_dest] = []
+                    # 캐시 리스트 방식 보류
+                    # if bus_name + bus_dest not in display_bus_num_list:
+                    #     display_bus_num_list[bus_name + bus_dest] = []
 
                     if a['NOWBUSSTOPNAME'] == "출발":
                         a['NOWBUSSTOPNAME'] = "정류소 출발"
