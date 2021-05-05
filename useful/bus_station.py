@@ -176,7 +176,7 @@ def find_bus_Paser(content):
                             'outputs': [{"simpleText": {"text": busstopName['BUSSTOPNAME'] + " 정류장 도착 정보"}},
                                         {"carousel": {"type": "basicCard", "items": []}}], 'quickReplies': []}}
 
-                        for key, value in sorted(display_bus_num_list.items()):
+                        for key, value in sorted(display_bus_num_list.items(),reverse=True):
                             if value != []:
                                 value = '\n'.join(str(e) for e in value)
                                 response = insert_carousel_card(response, "🚌" + key, value)
