@@ -11,6 +11,7 @@ headers = {
     "Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8",
 }
 
+
 # tools
 # 버스 실시간 정보 조회
 # 'forwardPosition': [{'NODER': 1, 'BUSID': '081909', 'BUSDIRECTCD': '1', 'RCVTIME': '20210429162519',
@@ -109,7 +110,7 @@ def find_bus_Paser(content):
                 "818(대구대)": [],
                 "818(황제)": []
             }
-            # 캐시 리스트 방식 보류
+            #캐시 리스트 방식 보류
             # display_bus_num_list = {
             #
             # }
@@ -139,27 +140,47 @@ def find_bus_Paser(content):
                     arrive_time = a['PREDICTTIME']
                     arrive_time = datetime.strptime(arrive_time, "%Y%m%d%H%M%S")
 
-                    # 캐시 리스트 방식 보류
+                # 캐시 리스트 방식 보류
                     # if bus_name + bus_dest not in display_bus_num_list:
                     #     display_bus_num_list[bus_name + bus_dest] = []
+                    #
+                    # if a['NOWBUSSTOPNAME'] == "출발":
+                    #     a['NOWBUSSTOPNAME'] = "정류소 출발"
+                    #
+                    # a['TIMEGAP'] = a['TIMEGAP'].replace("분", "분 후")
+                    #
+                    # display_bus_num_list[bus_name + bus_dest].append(
+                    #     f"- {a['TIMEGAP']}({arrive_time.strftime('%H시:%M분)도착 예정')} \n   Now: {a['NOWBUSSTOPNAME']}\n")
+                # response = {'version': '2.0', 'template': {
+                #     'outputs': [{"simpleText": {"text": busstopName['BUSSTOPNAME'] + " 정류장 도착 정보"}},
+                #                 {"carousel": {"type": "basicCard", "items": []}}], 'quickReplies': []}}
+                #
+                # for key, value in sorted(display_bus_num_list.items()):
+                #     if value != []:
+                #         value = '\n'.join(str(e) for e in value)
+                #         response = insert_carousel_card(response, "🚌" + key, value)
+                # response = answer(response)
 
-                    if a['NOWBUSSTOPNAME'] == "출발":
-                        a['NOWBUSSTOPNAME'] = "정류소 출발"
+                    if bus_name + bus_dest in display_bus_num_list:
+                        display_bus_num_list[bus_name + bus_dest] = []
 
-                    a['TIMEGAP'] = a['TIMEGAP'].replace("분", "분 후")
+                        if a['NOWBUSSTOPNAME'] == "출발":
+                            a['NOWBUSSTOPNAME'] = "정류소 출발"
 
-                    display_bus_num_list[bus_name + bus_dest].append(
-                        f"- {a['TIMEGAP']}({arrive_time.strftime('%H시:%M분)도착 예정')} \n   Now: {a['NOWBUSSTOPNAME']}\n")
+                        a['TIMEGAP'] = a['TIMEGAP'].replace("분", "분 후")
 
-                response = {'version': '2.0', 'template': {
-                    'outputs': [{"simpleText": {"text": busstopName['BUSSTOPNAME'] + " 정류장 도착 정보"}},
-                                {"carousel": {"type": "basicCard", "items": []}}], 'quickReplies': []}}
+                        display_bus_num_list[bus_name + bus_dest].append(
+                            f"- {a['TIMEGAP']}({arrive_time.strftime('%H시:%M분)도착 예정')} \n   Now: {a['NOWBUSSTOPNAME']}\n")
 
-                for key, value in sorted(display_bus_num_list.items()):
-                    if value != []:
-                        value = '\n'.join(str(e) for e in value)
-                        response = insert_carousel_card(response, "🚌" + key, value)
-                response = answer(response)
+                        response = {'version': '2.0', 'template': {
+                            'outputs': [{"simpleText": {"text": busstopName['BUSSTOPNAME'] + " 정류장 도착 정보"}},
+                                        {"carousel": {"type": "basicCard", "items": []}}], 'quickReplies': []}}
+
+                        for key, value in sorted(display_bus_num_list.items()):
+                            if value != []:
+                                value = '\n'.join(str(e) for e in value)
+                                response = insert_carousel_card(response, "🚌" + key, value)
+                        response = answer(response)
 
             else:
                 title = busstopName['BUSSTOPNAME'] + "\n정류장의 도착 예정 정보가 없습니다."
@@ -169,7 +190,6 @@ def find_bus_Paser(content):
             title = "찾으시는 " + content + " 정류장 정보가 없습니다.\n교내 버스정류장 이름 확인후 재검색 부탁드립니다."
             response = insert_text(title)
             response = answer(response)
-
 
         # 미안하지만 잠시 뺌
         # response = plus_card(response,"전체 버스 보기","")
