@@ -2,7 +2,7 @@ import requests
 import json
 from setting.card import *
 from setting.answer_main import answer
-import datetime
+from datetime import datetime
 import re
 
 headers = {
@@ -10,6 +10,7 @@ headers = {
     "Accept-Language": "ko",
     "Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8",
 }
+
 
 # tools
 # 버스 실시간 정보 조회
@@ -100,11 +101,25 @@ def find_bus_Paser(content):
 
             }
 
+            # 묶음 표기할 리스트. 버스번호
+            display_bus_num_list = {
+                "840(영남대)": [],
+                "840(하양)": [],
+                "818-1": [],
+                "708": [],
+                "818(대구대)": [],
+                "818(황제)": []
+            }
+            #캐시 리스트 방식 보류
+            # display_bus_num_list = {
+            #
+            # }
+
             if arriveInfo != []:
                 for a in arriveInfo:
                     bus_name = a['BUSLINENO'].replace('<span style="color:#f26522;">(저상)</font>', "")
                     bus_dest = ""
-            
+
                     # 행선지 표기 대상이면 추가 텍스트 삽입
                     if bus_name in display_bus_dest_list:
                         current_line_id = display_bus_dest_list[bus_name]
@@ -122,41 +137,64 @@ def find_bus_Paser(content):
                         # 버스 방향에 맞는 텍스트를 저장한다.
                         bus_dest = f"({bus_dest_text[bus_name][bus_dest_code]})"
 
-                    if a['TIMEGAP'] == '전' or a['TIMEGAP'] == '전전' or a['TIMEGAP'] == '전전전':
-                        data.append(
-                            a['BUSLINENO'] + bus_dest + " 버스🚌" +
-                            "\n지금 " + a['TIMEGAP'] + " 정류장에서 \n" + a['NOWBUSSTOPNAME'] + " 했어요" +
-                            "\n----------------------------------")
-                    else:
-                        # 도착시간
-                        arrive_time = re.findall("\d+", a['TIMEGAP'])
-                        arrive_time = '\n'.join(str(e) for e in arrive_time)
-                        now = datetime.datetime.now()
-                        now = now + datetime.timedelta(hours=9, minutes=int(arrive_time))
-                        data.append(
-                            a['BUSLINENO'] + bus_dest + " 버스🚌" +
-                            "\n도착 정보: " + a['TIMEGAP'] + "전(" + now.strftime('%H시:%M분)') +
-                            "\n지금 " + a['NOWBUSSTOPNAME'] + "에 있어요" +
-                            "\n----------------------------------")
+                    arrive_time = a['PREDICTTIME']
+                    arrive_time = datetime.strptime(arrive_time, "%Y%m%d%H%M%S")
 
-                member_text = '\n'.join(str(e) for e in data)
-                member_text = member_text.replace('<span style="color:#f26522;">(저상)</font>', "")
-                text = member_text
-                title = busstopName['BUSSTOPNAME'] + " 정류장 도착 정보입니다!\n----------------------------------\n"
+                # 캐시 리스트 방식 보류
+                    # if bus_name + bus_dest not in display_bus_num_list:
+                    #     display_bus_num_list[bus_name + bus_dest] = []
+                    #
+                    # if a['NOWBUSSTOPNAME'] == "출발":
+                    #     a['NOWBUSSTOPNAME'] = "정류소 출발"
+                    #
+                    # a['TIMEGAP'] = a['TIMEGAP'].replace("분", "분 후")
+                    #
+                    # display_bus_num_list[bus_name + bus_dest].append(
+                    #     f"- {a['TIMEGAP']}({arrive_time.strftime('%H시:%M분)도착 예정')} \n   Now: {a['NOWBUSSTOPNAME']}\n")
+                # response = {'version': '2.0', 'template': {
+                #     'outputs': [{"simpleText": {"text": busstopName['BUSSTOPNAME'] + " 정류장 도착 정보"}},
+                #                 {"carousel": {"type": "basicCard", "items": []}}], 'quickReplies': []}}
+                #
+                # for key, value in sorted(display_bus_num_list.items()):
+                #     if value != []:
+                #         value = '\n'.join(str(e) for e in value)
+                #         response = insert_carousel_card(response, "🚌" + key, value)
+                # response = answer(response)
+
+                    if bus_name + bus_dest in display_bus_num_list:
+                        display_bus_num_list[bus_name + bus_dest] = []
+
+                        if a['NOWBUSSTOPNAME'] == "출발":
+                            a['NOWBUSSTOPNAME'] = "정류소 출발"
+
+                        a['TIMEGAP'] = a['TIMEGAP'].replace("분", "분 후")
+
+                        display_bus_num_list[bus_name + bus_dest].append(
+                            f"- {a['TIMEGAP']}({arrive_time.strftime('%H시:%M분)도착 예정')} \n   Now: {a['NOWBUSSTOPNAME']}\n")
+
+                        response = {'version': '2.0', 'template': {
+                            'outputs': [{"simpleText": {"text": busstopName['BUSSTOPNAME'] + " 정류장 도착 정보"}},
+                                        {"carousel": {"type": "basicCard", "items": []}}], 'quickReplies': []}}
+
+                        for key, value in sorted(display_bus_num_list.items(),reverse=True):
+                            if value != []:
+                                value = '\n'.join(str(e) for e in value)
+                                response = insert_carousel_card(response, "🚌" + key, value)
+                        response = answer(response)
+
             else:
                 title = busstopName['BUSSTOPNAME'] + "\n정류장의 도착 예정 정보가 없습니다."
+                response = insert_text(title)
+                response = answer(response)
         else:
             title = "찾으시는 " + content + " 정류장 정보가 없습니다.\n교내 버스정류장 이름 확인후 재검색 부탁드립니다."
-
-        if text == "":
             response = insert_text(title)
             response = answer(response)
-        else:
-            response = insert_text(title + text)
-            # 미안하지만 잠시 뺌
-            # response = plus_card(response,"전체 버스 보기","")
-            # response = insert_button_url(response, "바로가기", "http://bus.dryrain.me:5000/bus.html#"+busstopName['BUSSTOPNAME']+"/"+BUSSTOPID)
-            response = answer(response)
+
+        # 미안하지만 잠시 뺌
+        # response = plus_card(response,"전체 버스 보기","")
+        # response = insert_button_url(response, "바로가기", "http://bus.dryrain.me:5000/bus.html#"+busstopName['BUSSTOPNAME']+"/"+BUSSTOPID)
+        # response = answer(response)
     except:
         pass
 

@@ -140,21 +140,21 @@ def insert_list_button(new_response, label, web_url):
 def insert_carousel_card(new_response, title, description, image_url=None, width=None, height=None):
     if image_url is not None:
         if width is not None and height is not None:
-            new_response['template']['outputs'][0]['carousel']['items'].append({
+            new_response['template']['outputs'][-1]['carousel']['items'].append({
                 'title': title,
                 'description': description,
                 'thumbnail': {"imageUrl": image_url, 'fixedRatio': True, 'width': width, 'height': height},
                 'buttons': []
             })
         else:
-            new_response['template']['outputs'][0]['carousel']['items'].append({
+            new_response['template']['outputs'][-1]['carousel']['items'].append({
                 'title': title,
                 'description': description,
                 'thumbnail': {"imageUrl": image_url},
                 'buttons': []
             })
     else:
-        new_response['template']['outputs'][0]['carousel']['items'].append({
+        new_response['template']['outputs'][-1]['carousel']['items'].append({
             'title': title,
             'description': description,
             'buttons': []
@@ -164,7 +164,7 @@ def insert_carousel_card(new_response, title, description, image_url=None, width
 
 # 카카오톡 채널 - 케로셀 URL 버튼 생성
 def insert_carousel_button_url(new_response, label, web_url):
-    new_response['template']['outputs'][0]['carousel']['items'][-1]['buttons'].append({
+    new_response['template']['outputs'][-1]['carousel']['items'][-1]['buttons'].append({
         "action": "webLink",
         "label": label,
         "webLinkUrl": web_url
@@ -174,7 +174,7 @@ def insert_carousel_button_url(new_response, label, web_url):
 
 # 카카오톡 채널 - 케로셀 텍스트 버튼 생성
 def insert_carousel_button_text(new_response, label, text):
-    new_response['template']['outputs'][0]['carousel']['items'][-1]['buttons'].append({
+    new_response['template']['outputs'][-1]['carousel']['items'][-1]['buttons'].append({
         "action": "message",
         "label": label,
         "messageText": text
