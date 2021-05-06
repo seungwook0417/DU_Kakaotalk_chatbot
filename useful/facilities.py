@@ -45,6 +45,7 @@ def facilities_parser(content):
             response = insert_text("해당 편의시설을 찾지 못했어요\n ex)편의점 혹은 매점, 복사\n\n혹시 편의시설 검색이 안되나요?😢\n오류제보 통해 제보해주세요!😊")
             response = answer(response)
         else:
+            # 캐시 리시트 방식 추가 예정 --------
             # 반복 횟수만큼 카드 개수 증가
             for t in range(0, int(len(facil_list) / 3)):
                 response = insert_carousel_card(new_response=response, title=facil_list[(t * 3)], description=facil_list[(t * 3 + 1)])
