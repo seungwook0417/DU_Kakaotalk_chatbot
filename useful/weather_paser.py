@@ -4,6 +4,12 @@ from setting.answer_main import *
 import requests
 from bs4 import BeautifulSoup
 
+headers = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.152 Safari/537.36",
+    "Accept-Language": "ko",
+    "Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8",
+}
+
 def naver_weather_parser():
     try:
         url = "https://search.naver.com/search.naver?sm=tab_hty.top&where=nexearch&query=%EA%B2%BD%EC%82%B0+%EB%82%A0%EC%94%A8&tqi=h4Q7blp0JXossg%2F2UxGssssssgN-252128"
