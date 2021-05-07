@@ -4,7 +4,7 @@ from setting.card import *
 from setting.answer_main import answer
 import datetime
 import re
-
+# 봇이 아닌 유저라고 알리는 헤더 값
 headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.152 Safari/537.36",
     "Accept-Language": "ko",
