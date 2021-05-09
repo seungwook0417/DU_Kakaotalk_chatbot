@@ -3,10 +3,12 @@ from setting.card import *
 from setting.answer_main import answer
 
 def restaurant_info(content):
+    # 식당 건물 정보 입력
     content = content['action']['detailParams']['restaurant']['value']
     content = ''.join(str(e) for e in content)
     content = content.replace(" ", "")
     try:
+        # 식당 데이터 접근
         json_data = open('./restaurant.json', 'r', encoding="utf-8").read()
         data = json.loads(json_data)
         data_arr = data["restaurant"]
@@ -14,6 +16,7 @@ def restaurant_info(content):
         description = ""
         img_url = ""
         for i in data_arr:
+            # 파람 데이터 찾기
             if content in i['title']:
                 title = str(i['title']) + " MENU!!"
                 img_url = str(i['img_url'])
