@@ -9,11 +9,6 @@ def facilities_parser(content):
     content = ''.join(str(e) for e in content)
     content = content.replace(" ", "")
 
-    # 편의시설 캐시 리스트를 위한 dict
-    # facil_list_cache = {
-    #
-    # }
-
     try:
         # 편의시설 데이터 접근
         json_data = open('./facil_info.json', 'r', encoding="utf-8").read()
@@ -42,17 +37,17 @@ def facilities_parser(content):
                 description = i['id'] +" " + str_f +"에 있어요!" + str_op + str_pn
                 location_URL = 'https://map.kakao.com/link/to/' + str(i['type']) + '/'
 
-                # 값에 부합하는 값들을 모두 list에 추가
                 facil_list.append(title)
                 facil_list.append(description)
                 facil_list.append(location_URL)
+
+
 
         if len(facil_list)==0:
             response = insert_text("해당 편의시설을 찾지 못했어요\n ex)편의점 혹은 매점, 복사\n\n혹시 편의시설 검색이 안되나요?😢\n오류제보 통해 제보해주세요!😊")
             response = answer(response)
         else:
-            # 캐시 리시트 방식 추가 예정 --------
-            # 반복 횟수만큼 카드 개수 증가, carousel 방식 사용
+            # 반복 횟수만큼 카드 개수 증가
             for t in range(0, int(len(facil_list) / 3)):
                 response = insert_carousel_card(new_response=response, title=facil_list[(t * 3)], description=facil_list[(t * 3 + 1)])
                 response = insert_carousel_button_url(new_response=response, label="길찾기", web_url=facil_list[(t * 3 + 2)])
@@ -60,7 +55,6 @@ def facilities_parser(content):
                 if t == 6:
                     break
             response = answer(response)
-
 
         return response
     except:
