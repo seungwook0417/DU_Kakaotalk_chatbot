@@ -15,10 +15,12 @@ def restaurant_info(content):
         title = ""
         description = ""
         img_url = ""
+        #category =""
         for i in data_arr:
-            # 파람 데이터 찾기
+            # 파람에 부합하는 데이터 찾기
             if content in i['title']:
-                title = str(i['title']) + " MENU!!"
+                # category = "======" + str(i['category']) + "======"
+                # 카테고리별 json 데이터와 description 출력 코드수정예정
                 img_url = str(i['img_url'])
                 for j in i['menu']:
                     description += (str(j['name']) + " " + str(j['price']) + "원" + "\n")
