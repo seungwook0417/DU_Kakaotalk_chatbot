@@ -36,10 +36,12 @@ def facilities_parser(content):
 
                 description = i['id'] +" " + str_f +"에 있어요!" + str_op + str_pn
                 location_URL = 'https://map.kakao.com/link/to/' + str(i['type']) + '/'
-
+                # 검색 결과값을 리스트에 저장
                 facil_list.append(title)
                 facil_list.append(description)
                 facil_list.append(location_URL)
+
+
 
         if len(facil_list)==0:
             response = insert_text("해당 편의시설을 찾지 못했어요\n ex)편의점 혹은 매점, 복사\n\n혹시 편의시설 검색이 안되나요?😢\n오류제보 통해 제보해주세요!😊")
@@ -47,6 +49,7 @@ def facilities_parser(content):
         else:
             # 반복 횟수만큼 카드 개수 증가
             for t in range(0, int(len(facil_list) / 3)):
+                # 케로셀 카드 방식 추가
                 response = insert_carousel_card(new_response=response, title=facil_list[(t * 3)], description=facil_list[(t * 3 + 1)])
                 response = insert_carousel_button_url(new_response=response, label="길찾기", web_url=facil_list[(t * 3 + 2)])
                 # 카드 최대개수 7개 제한
