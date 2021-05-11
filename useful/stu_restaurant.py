@@ -33,17 +33,17 @@ def restaurant_info(content):
         pass
 
     # 일반 카드 적용 코드
-    # category1 = "========분식========" # 분식
-    # category2 = "========한식========" # 한식
-    # category3 = "========양식========" # 양식
+    # category_description = ["========분식========", "========한식========", "========양식========"]
+    # title = ["분식", "한식", "양식"]
     # for i in data_arr:
     #    # 파람에 부합하는 데이터 찾기
     #    if content in i['title']:
     #        img_url = str(i['img_url'])
     #        for j in i['menu']:
     #           category_index = title.index(j['category'])
-    #           category[category_index] += ("\n" + str(j['name']) + " " + str(j['price']) + "원")
-    # description += category1+"\n"+category2+"\n"+category3
+    #           category_description[category_index] += ("\n" + str(j['name']) + " " + str(j['price']) + "원")
+    # for t in category_description:
+    #   description += t
     #if title == "":
     #    response = insert_text("원하는 식당 정보를 찾지 못했어요 다시 검색해주세요!")
     #    response = answer(response)
