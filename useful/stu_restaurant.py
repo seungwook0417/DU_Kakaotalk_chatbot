@@ -13,56 +13,37 @@ def restaurant_info(content):
         data = json.loads(json_data)
         data_arr = data["restaurant"]
         title = ["분식", "한식", "양식"]
-        #description = ""
-        img_url = ""
         category =["", "", ""]
         for i in data_arr:
             # 파람에 부합하는 데이터 찾기
             if content in i['title']:
-                img_url = str(i['img_url'])
                 for j in i['menu']:
-                    if str(j['category']) =="분식":
-                        category[0] += ("\n" + str(j['name']) + " " + str(j['price']) + "원")
-                    elif str(j['category']) =="한식":
-                        category[1] += ("\n" + str(j['name']) + " " + str(j['price']) + "원")
-                    elif str(j['category']) == "양식":
-                        category[2] += ("\n" + str(j['name']) + " " + str(j['price']) + "원")
+                    category_index = title.index(j['category'])
+                    if (str(j['price']) == ""):
+                        category[category_index] += ("\n" + str(j['name']) + " " + "판매중지")
                     else:
-                        continue
+                        category[category_index] += ("\n" + str(j['name']) + " " + str(j['price']) + "원")
 
         for i in range(0, 3):
             response = insert_carousel_card(new_response=response, title=title[i], description=category[i])
-
+        response = answer(response)
         return response
 
     except:
         pass
 
-    # 판매중지 조건 코드
-    #if (str(j['price']) == ""):
-    #    description += (str(j['name']) + " " + "판매중지" + "\n")
-    #else:
-    #    description += (str(j['name']) + " " + str(j['price']) + "원" + "\n")
-
-
     # 일반 카드 적용 코드
-    # category1 = "========분식========" # 분식
-    # category2 = "========한식========" # 한식
-    # category3 = "========양식========" # 양식
+    # category_description = ["========분식========", "========한식========", "========양식========"]
+    # title = ["분식", "한식", "양식"]
     # for i in data_arr:
     #    # 파람에 부합하는 데이터 찾기
     #    if content in i['title']:
     #        img_url = str(i['img_url'])
     #        for j in i['menu']:
-    #            if str(j['category']) =="분식":
-    #                category1 += ("\n" + str(j['name']) + " " + str(j['price']) + "원")
-    #            elif str(j['category']) =="한식":
-    #                category2 += ("\n" + str(j['name']) + " " + str(j['price']) + "원")
-    #            elif str(j['category']) == "양식":
-    #                category3 += ("\n" + str(j['name']) + " " + str(j['price']) + "원")
-    #            else:
-    #                continue
-    # description += category1+"\n"+category2+"\n"+category3
+    #           category_index = title.index(j['category'])
+    #           category_description[category_index] += ("\n" + str(j['name']) + " " + str(j['price']) + "원")
+    # for t in category_description:
+    #   description += t
     #if title == "":
     #    response = insert_text("원하는 식당 정보를 찾지 못했어요 다시 검색해주세요!")
     #    response = answer(response)
