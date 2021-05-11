@@ -23,7 +23,10 @@ def restaurant_info(content):
                 # 카테고리별 json 데이터와 description 출력 코드수정예정
                 img_url = str(i['img_url'])
                 for j in i['menu']:
-                    description += (str(j['name']) + " " + str(j['price']) + "원" + "\n")
+                    if(str(j['price']) == ""):
+                        description += (str(j['name']) + " " + "판매중지" + "\n")
+                    else:
+                        description += (str(j['name']) + " " + str(j['price']) + "원" + "\n")
 
         if title == "":
             response = insert_text("원하는 식당 정보를 찾지 못했어요 다시 검색해주세요!")
