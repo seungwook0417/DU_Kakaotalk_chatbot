@@ -15,18 +15,23 @@ def restaurant_info(content):
         title = ""
         description = ""
         img_url = ""
-        #category =""
+        category1 = "========분식========" # 분식
+        category2 = "========한식========" # 한식
+        category3 = "========양식========" # 양식
         for i in data_arr:
             # 파람에 부합하는 데이터 찾기
             if content in i['title']:
-                # category = "======" + str(i['category']) + "======"
-                # 카테고리별 json 데이터와 description 출력 코드수정예정
                 img_url = str(i['img_url'])
                 for j in i['menu']:
-                    if(str(j['price']) == ""):
-                        description += (str(j['name']) + " " + "판매중지" + "\n")
+                    if str(j['category']) =="분식":
+                        category1 += ("\n" + str(j['name']) + " " + str(j['price']) + "원")
+                    elif str(j['category']) =="한식":
+                        category2 += ("\n" + str(j['name']) + " " + str(j['price']) + "원")
+                    elif str(j['category']) == "양식":
+                        category3 += ("\n" + str(j['name']) + " " + str(j['price']) + "원")
                     else:
-                        description += (str(j['name']) + " " + str(j['price']) + "원" + "\n")
+                        continue
+        description += category1+"\n"+category2+"\n"+category3
 
         if title == "":
             response = insert_text("원하는 식당 정보를 찾지 못했어요 다시 검색해주세요!")
@@ -38,3 +43,9 @@ def restaurant_info(content):
 
     except:
         pass
+
+    # 판매중지 조건 코드
+    #if (str(j['price']) == ""):
+    #    description += (str(j['name']) + " " + "판매중지" + "\n")
+    #else:
+    #    description += (str(j['name']) + " " + str(j['price']) + "원" + "\n")
