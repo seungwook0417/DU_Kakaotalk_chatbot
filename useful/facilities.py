@@ -61,7 +61,7 @@ def facilities_parser(content):
     except:
         pass
 
-    #cache dict방식
+    #cache dict방식 추가
     #facil_dict = {}
     #for i in data['facilities']:
     #    if i["sectors"] not in facil_dict:
