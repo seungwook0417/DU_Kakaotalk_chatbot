@@ -60,3 +60,20 @@ def facilities_parser(content):
         return response
     except:
         pass
+
+    #cache dict방식
+    #facil_dict = {}
+    #for i in data['facilities']:
+    #    if i["sectors"] not in facil_dict:
+    #        facil_dict[str(i["sectors"])] = []
+
+    #response = {'version': '2.0',
+    #            'template': {'outputs': [{"carousel": {"type": "basicCard", "items": []}}], 'quickReplies': []}}
+
+    #for i in data['facilities']:
+    #    facil_dict[i["sectors"]].append([i["id"]+ " " + i["floor"]+"층에 있어요!\n" + "사무실 번호" + i['office_phone'] + "\n휴대폰 번호 " + i['phone_number']])
+
+    #for key, value in facil_dict.items():
+    #    value = '\n'.join(str(e) for e in value)
+    #    print(key)
+    #    print(value)
