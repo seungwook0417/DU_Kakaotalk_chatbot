@@ -116,7 +116,6 @@ def find_bus_Paser(content):
         for a in arriveInfo:
             bus_name = a['BUSLINENO'].replace('<span style="color:#f26522;">(저상)</font>', "")
             bus_dest = ""
-            print(bus_name)
             # 행선지 표기 대상이면 추가 텍스트 삽입
             if bus_name in display_bus_dest_list:
                 current_line_id = display_bus_dest_list[bus_name]
@@ -164,6 +163,9 @@ def find_bus_Paser(content):
                         value = '\n'.join(str(e) for e in value)
                         response = insert_carousel_card(response, "🚌" + key, value)
 
+                response = plus_card(response, "웹으로 보기", "")
+                response = insert_button_url(response, "바로가기", "http://bus.dryrain.me:5000/bus.html#" + busstopName[
+                    'BUSSTOPNAME'] + "/" + BUSSTOPID)
                 response = answer(response)
             else:
                 title = busstopName['BUSSTOPNAME'] + "\n정류장의 도착 예정 정보가 없습니다."
