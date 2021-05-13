@@ -16,19 +16,19 @@ def facilities_parser(content):
         title = ""
         description = ""
         facil_dict = {}
-
+        # simpleText 방식과 carousel 방식을 추가한 값
         response = {'version': '2.0', 'template': {
             'outputs': [{"simpleText": {"text": content + " 위치 정보에요!"}},
                         {"carousel": {"type": "basicCard", "items": []}}], 'quickReplies': []}}
-
+        # dictionary key값 저장
         for i in data['facilities']:
             if i["sectors"] not in facil_dict:
                 facil_dict[str(i["sectors"])] = []
-
+        # dictionary value값 리스트 형태로 저장
             facil_dict[i["sectors"]].append(
                 [i["id"] + " " + i["floor"] + "층에 있어요!", "사무실 번호" + i['office_phone'] + "\n휴대폰 번호 " + i['phone_number'],
                  "https://map.kakao.com/link/to/" + str(i["type"]) + "/"])
-
+        # key, value 값 carousel 카드 형태로 삽입
         for key, value in facil_dict.items():
             if key == content:
                 for i in value:
