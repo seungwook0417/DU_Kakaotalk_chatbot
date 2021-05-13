@@ -29,7 +29,8 @@ def lecture_Parser(content):
                 lecture_list.append(location_URL)
 
         if len(lecture_list) == 0:
-            response = insert_text("해당 강의실을 찾지 못했어요\n ex)공7506 또는 000\n\n혹시 강의실이 검색이 안되나요?😢\n오류제보 통해 제보해주세요!😊")
+            response = insert_text("해당 강의실을 찾지 못했어요\n ex)공7506 또는 000\n     인1105\n혹시 강의실이 검색이 안되나요?\n오류제보 통해 제보해주세요!😊")
+            response = puls_insert_image(response,"https://i.esdrop.com/d/hlogPZr3wi/Duz9RM7WDM.png","강의실 안내")
             response = answer(response)
         else:
             # 캐시 리시트 방식 추가 예정 --------
