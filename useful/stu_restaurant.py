@@ -25,6 +25,7 @@ def restaurant_info(content):
                         category[category_index] += ("\n" + str(j['name']) + " " + str(j['price']) + "원")
 
         for i in range(0, 3):
+            #현) 케로셀 카드방식, 변경예정) 케로셀 텍스트 방식
             response = insert_carousel_card(new_response=response, title=title[i], description=category[i])
         response = answer(response)
         return response
