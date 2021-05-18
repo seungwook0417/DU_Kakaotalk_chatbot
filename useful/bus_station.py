@@ -150,7 +150,7 @@ def find_bus_Paser(content):
 
                 # 정렬할 버스 리스트 삽입
                 display_bus_num_list[bus_name + bus_dest].append(
-                    f"- {a['TIMEGAP']}({now.strftime('%H시:%M분)')} \n   Now: {a['NOWBUSSTOPNAME']}\n({a['CARTERMID'][-4:]})")
+                    f"- {a['TIMEGAP']}({now.strftime('%H시:%M분)')} \n   Now: {a['NOWBUSSTOPNAME']}\n   차번호:{a['CARTERMID'][-4:]}")
 
                 # 케로셀 카드 형식 지정
                 response = {'version': '2.0', 'template': {
