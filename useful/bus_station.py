@@ -151,7 +151,6 @@ def find_bus_Paser(content):
                 # 정렬할 버스 리스트 삽입
                 display_bus_num_list[bus_name + bus_dest].append(
                     f"- {a['TIMEGAP']}({now.strftime('%H시:%M분)')} \n   Now: {a['NOWBUSSTOPNAME']}\n   차번호:{a['CARTERMID'][-4:]}")
-
                 # 케로셀 카드 형식 지정
                 response = {'version': '2.0', 'template': {
                     'outputs': [{"simpleText": {"text": busstopName['BUSSTOPNAME'] + " 정류장 도착 정보"}},
@@ -163,48 +162,16 @@ def find_bus_Paser(content):
                         value = '\n'.join(str(e) for e in value)
                         response = insert_carousel_card(response, "🚌" + key, value)
 
-                response = plus_card(response, " ", "")
-                response = insert_button_url(response, "웹으로 보기", "http://bus.dryrain.me:5000/bus.html#" + busstopName[
-                    'BUSSTOPNAME'] + "/" + BUSSTOPID)
-                response = answer(response)
-            else:
-                title = busstopName['BUSSTOPNAME'] + "\n정류장의 도착 예정 정보가 없습니다."
-                response = insert_text(title)
-                response = plus_card(response, " ", "")
-                response = insert_button_url(response, "웹으로 보기", "http://bus.dryrain.me:5000/bus.html#" + busstopName['BUSSTOPNAME'] + "/" + BUSSTOPID)
-                response = answer(response)
-
-            # 캐시 리스트 방식 보류
-            # if bus_name + bus_dest not in display_bus_num_list:
-            #     display_bus_num_list[bus_name + bus_dest] = []
-            #
-            # if a['NOWBUSSTOPNAME'] == "출발":
-            #     a['NOWBUSSTOPNAME'] = "정류소 출발"
-            #
-            # a['TIMEGAP'] = a['TIMEGAP'].replace("분", "분 후")
-            #
-            # display_bus_num_list[bus_name + bus_dest].append(
-            #     f"- {a['TIMEGAP']}({arrive_time.strftime('%H시:%M분)도착 예정')} \n   Now: {a['NOWBUSSTOPNAME']}\n")
-
-            # response = {'version': '2.0', 'template': {
-            #     'outputs': [{"simpleText": {"text": busstopName['BUSSTOPNAME'] + " 정류장 도착 정보"}},
-            #                 {"carousel": {"type": "basicCard", "items": []}}], 'quickReplies': []}}
-            #
-            # for key, value in sorted(display_bus_num_list.items()):
-            #     if value != []:
-            #         value = '\n'.join(str(e) for e in value)
-            #         response = insert_carousel_card(response, "🚌" + key, value)
-            # response = answer(response)
-            #                 else:
-            #                     title = busstopName['BUSSTOPNAME'] + "\n정류장의 도착 예정 정보가 없습니다."
-            #                     response = insert_text(title)
-            #                     response = answer(response)
+        if response['template']['outputs'][-1]['carousel']['items'] == "":
+            title = busstopName['BUSSTOPNAME'] + "\n정류장의 도착 예정 정보가 없습니다."
+            response = insert_text(title)
     else:
         title = busstopName['BUSSTOPNAME'] + "\n정류장의 도착 예정 정보가 없습니다."
         response = insert_text(title)
-        response = plus_card(response," ","")
-        response = insert_button_url(response, "웹으로 보기", "http://bus.dryrain.me:5000/bus.html#"+busstopName['BUSSTOPNAME']+"/"+BUSSTOPID)
-        response = answer(response)
+
+    response = plus_card(response," ","")
+    response = insert_button_url(response, "웹으로 보기", "http://bus.dryrain.me:5000/bus.html#"+busstopName['BUSSTOPNAME']+"/"+BUSSTOPID)
+    response = answer(response)
     # except:
     #     pass
 
