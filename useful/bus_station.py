@@ -52,127 +52,134 @@ def find_bus_Paser(content):
     content = content['action']['detailParams']['find_bus']["value"]
     content = ''.join(str(e) for e in content)
     content = content.replace(" ", "")
+    print(content)
     # 버스정보 데이터 접근
-    #try:
-    json_data = open('data.json', 'r', encoding="utf-8").read()
-    data = json.loads(json_data)
-    BUSSTOPID = ""
-    for i in data["bus"]:
-        if content in i['busstopName']:
-            BUSSTOPID = i['BUSSTOPID']
-            break
+    try:
+        json_data = open('data.json', 'r', encoding="utf-8").read()
+        data = json.loads(json_data)
+        BUSSTOPID = ""
+        for i in data["bus"]:
+            if content in i['busstopName']:
+                BUSSTOPID = i['BUSSTOPID']
+                break
 
-    # 경산시 교통정보센터 API 사용
-    url = 'http://its.gbgs.go.kr/bus/getMapBusstopInfo'
-    response = requests.post(url=url, headers=headers, data={
-        'BUSSTOPID': BUSSTOPID
-    })
-    bus_json = response.json()
-    # 정류소
-    bus_json = bus_json['result']
-    # 정류소 도착정보
-    arriveInfo = bus_json['arriveInfo']
-    # 정류소 이름
-    busstopName = bus_json['busstopName']
+        # 경산시 교통정보센터 API 사용
+        url = 'http://its.gbgs.go.kr/bus/getMapBusstopInfo'
+        response = requests.post(url=url, headers=headers, data={
+            'BUSSTOPID': BUSSTOPID
+        })
+        bus_json = response.json()
+        # 정류소
+        bus_json = bus_json['result']
+        # 정류소 도착정보
+        arriveInfo = bus_json['arriveInfo']
+        # 정류소 이름
+        busstopName = bus_json['busstopName']
 
-    # 행선지를 표기할 리스트. 버스번호/line_id
-    display_bus_dest_list = {
-        "840": "3000840000"
-    }
-
-    # 행선지별 디스플레이 할 텍스트. "1" 이 정방향, "0"이 역방향
-    bus_dest_text = {
-        "840": {
-            "1": "영남대",
-            "0": "하양",
+        # 행선지를 표기할 리스트. 버스번호/line_id
+        display_bus_dest_list = {
+            "840": "3000840000"
         }
-    }
 
-    # node_line_list 를 캐시 해 놓을 dict
-    bus_line_node_list_cache = {
+        # 행선지별 디스플레이 할 텍스트. "1" 이 정방향, "0"이 역방향
+        bus_dest_text = {
+            "840": {
+                "1": "영남대",
+                "0": "하양",
+            }
+        }
 
-    }
+        # node_line_list 를 캐시 해 놓을 dict
+        bus_line_node_list_cache = {
 
-    # 정렬할 버스 리스트. 버스번호
-    display_bus_num_list = {
-        "840(영남대)": [],
-        "840(하양)": [],
-        "818-1": [],
-        "708": [],
-        "818(대구대)": [],
-        "818(황제)": [],
-        "814": [],
-        "급행5": [],
-        "399": [],
-        "진량1": [],
-        "818(귀빈)":[]
-    }
-    # 캐시 리스트 방식 보류
-    # display_bus_num_list = {
-    #
-    # }
+        }
 
-    if arriveInfo != []:
-        for a in arriveInfo:
-            bus_name = a['BUSLINENO'].replace('<span style="color:#f26522;">(저상)</font>', "")
-            bus_dest = ""
-            # 행선지 표기 대상이면 추가 텍스트 삽입
-            if bus_name in display_bus_dest_list:
-                current_line_id = display_bus_dest_list[bus_name]
+        # 정렬할 버스 리스트. 버스번호
+        display_bus_num_list = {
+            "840(영남대)": [],
+            "840(하양)": [],
+            "818-1": [],
+            "708": [],
+            "818(대구대)": [],
+            "818(황제)": [],
+            "814": [],
+            "급행5": [],
+            "399": [],
+            "진량1": [],
+            "818(귀빈)":[]
+        }
+        # 캐시 리스트 방식 보류
+        # display_bus_num_list = {
+        #
+        # }
 
-                # 캐시에 node_line_list 가 있는지 확인 후 없으면 새로 가져온다.
-                if current_line_id not in bus_line_node_list_cache:
-                    bus_line_node_list_cache[current_line_id] = get_bus_line_node_list(current_line_id)
+        if arriveInfo != []:
+            for a in arriveInfo:
+                bus_name = a['BUSLINENO'].replace('<span style="color:#f26522;">(저상)</font>', "")
+                bus_dest = ""
+                # 행선지 표기 대상이면 추가 텍스트 삽입
+                if bus_name in display_bus_dest_list:
+                    current_line_id = display_bus_dest_list[bus_name]
 
-                # CARTERMID 끝 4자리로 버스 번호를 확인하고 버스의 방향을 구한다.
-                bus_dest_code = get_bus_direction(
-                    car_no=a['CARTERMID'][-4:],
-                    line_node_list=bus_line_node_list_cache[current_line_id]
-                )
+                    # 캐시에 node_line_list 가 있는지 확인 후 없으면 새로 가져온다.
+                    if current_line_id not in bus_line_node_list_cache:
+                        bus_line_node_list_cache[current_line_id] = get_bus_line_node_list(current_line_id)
 
-                # 버스 방향에 맞는 텍스트를 저장한다.
-                bus_dest = f"({bus_dest_text[bus_name][bus_dest_code]})"
+                    # CARTERMID 끝 4자리로 버스 번호를 확인하고 버스의 방향을 구한다.
+                    bus_dest_code = get_bus_direction(
+                        car_no=a['CARTERMID'][-4:],
+                        line_node_list=bus_line_node_list_cache[current_line_id]
+                    )
 
-            # 리스트에 들어있는 버스이면 동작
-            if bus_name + bus_dest in display_bus_num_list:
-                if "전" in a['TIMEGAP']:
-                    arrive_time = 1
-                else:
-                    arrive_time = re.findall("\d+", a['TIMEGAP'])
-                    arrive_time = ''.join(str(e) for e in arrive_time)
+                    # 버스 방향에 맞는 텍스트를 저장한다.
+                    bus_dest = f"({bus_dest_text[bus_name][bus_dest_code]})"
 
-                now = datetime.datetime.now()
-                now = now + datetime.timedelta(hours=9, minutes=int(arrive_time))
-                
-                # 가독성을 위한 문구수정
-                a['NOWBUSSTOPNAME'] = a['NOWBUSSTOPNAME'].replace("출발", "정류소 출발")
-                a['TIMEGAP'] = a['TIMEGAP'].replace("분", "분 후")
+                # 리스트에 들어있는 버스이면 동작
+                if bus_name + bus_dest in display_bus_num_list:
+                    if "전" in a['TIMEGAP']:
+                        arrive_time = 1
+                    else:
+                        arrive_time = re.findall("\d+", a['TIMEGAP'])
+                        arrive_time = ''.join(str(e) for e in arrive_time)
 
-                # 정렬할 버스 리스트 삽입
-                display_bus_num_list[bus_name + bus_dest].append(
-                    f"- {a['TIMEGAP']}({now.strftime('%H시:%M분)')} \n   Now: {a['NOWBUSSTOPNAME']}\n   차번호:{a['CARTERMID'][-4:]}")
-                # 케로셀 카드 형식 지정
-                response = {'version': '2.0', 'template': {
-                    'outputs': [{"simpleText": {"text": busstopName['BUSSTOPNAME'] + " 정류장 도착 정보"}},
-                                {"carousel": {"type": "basicCard", "items": []}}], 'quickReplies': []}}
+                    now = datetime.datetime.now()
+                    now = now + datetime.timedelta(hours=9, minutes=int(arrive_time))
+                    print(now)
 
-                # 여러 결과값 출력을 위한 carousel 카드 삽입
-                for key, value in sorted(display_bus_num_list.items(), reverse=True):
-                    if value != []:
-                        value = '\n'.join(str(e) for e in value)
-                        response = insert_carousel_card(response, "🚌" + key, value)
+                    # 가독성을 위한 문구수정
+                    a['NOWBUSSTOPNAME'] = a['NOWBUSSTOPNAME'].replace("출발", "정류소 출발")
+                    a['TIMEGAP'] = a['TIMEGAP'].replace("분", "분 후")
 
-        if response['template']['outputs'][-1]['carousel']['items'] == "":
+                    # 정렬할 버스 리스트 삽입
+                    display_bus_num_list[bus_name + bus_dest].append(
+                        f"- {a['TIMEGAP']}({now.strftime('%H시:%M분)')} \n   Now: {a['NOWBUSSTOPNAME']}\n   차번호:{a['CARTERMID'][-4:]}")
+                    # 케로셀 카드 형식 지정
+                    response = {'version': '2.0', 'template': {
+                        'outputs': [{"simpleText": {"text": busstopName['BUSSTOPNAME'] + " 정류장 도착 정보"}},
+                                    {"carousel": {"type": "basicCard", "items": []}}], 'quickReplies': []}}
+
+                    # 여러 결과값 출력을 위한 carousel 카드 삽입
+                    for key, value in sorted(display_bus_num_list.items(), reverse=True):
+                        if value != []:
+                            value = '\n'.join(str(e) for e in value)
+                            response = insert_carousel_card(response, "🚌" + key, value)
+
+            if response['template']['outputs'][-1]['carousel']['items'] == "":
+                title = busstopName['BUSSTOPNAME'] + "\n정류장의 도착 예정 정보가 없습니다."
+                response = insert_text(title)
+        else:
             title = busstopName['BUSSTOPNAME'] + "\n정류장의 도착 예정 정보가 없습니다."
             response = insert_text(title)
-    else:
+
+        response = plus_card(response," ","")
+        response = insert_button_url(response, "웹으로 보기", "http://bus.dryrain.me:5000/bus.html#"+busstopName['BUSSTOPNAME']+"/"+BUSSTOPID)
+        response = answer(response)
+    except:
         title = busstopName['BUSSTOPNAME'] + "\n정류장의 도착 예정 정보가 없습니다."
         response = insert_text(title)
-
-    response = plus_card(response," ","")
-    response = insert_button_url(response, "웹으로 보기", "http://bus.dryrain.me:5000/bus.html#"+busstopName['BUSSTOPNAME']+"/"+BUSSTOPID)
-    response = answer(response)
-    # except:
-    #     pass
+        response = plus_card(response, " ", "")
+        response = insert_button_url(response, "웹으로 보기", "http://bus.dryrain.me:5000/bus.html#" + busstopName[
+            'BUSSTOPNAME'] + "/" + BUSSTOPID)
+        response = answer(response)
 
     return response
