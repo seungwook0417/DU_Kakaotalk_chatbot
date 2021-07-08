@@ -175,11 +175,9 @@ def find_bus_Paser(content):
         response = insert_button_url(response, "웹으로 보기", "http://bus.dryrain.me:5000/bus.html#"+busstopName['BUSSTOPNAME']+"/"+BUSSTOPID)
         response = answer(response)
     except:
-        title = busstopName['BUSSTOPNAME'] + "\n정류장의 도착 예정 정보가 없습니다."
+        title = "정류장의 도착 예정 정보가 없습니다."
         response = insert_text(title)
         response = plus_card(response, " ", "")
-        response = insert_button_url(response, "웹으로 보기", "http://bus.dryrain.me:5000/bus.html#" + busstopName[
-            'BUSSTOPNAME'] + "/" + BUSSTOPID)
         response = answer(response)
 
     return response
