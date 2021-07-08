@@ -11,7 +11,7 @@ def lecture_Parser(content):
     content = content.replace("-", "")
     try:
         # 강의실 데이터 접근
-        json_data = open('data.json', 'r', encoding="utf-8").read()
+        json_data = open('data.json', 'r', encoding="utf-8-sig").read()
         data = json.loads(json_data)
         title = ""
         location_URL = ""
@@ -20,7 +20,7 @@ def lecture_Parser(content):
         # 강의실 데이터에서 강의실 찾기
         for i in data['data']:
             # 강의실 번호 혹은 교수 이름
-            if content in i['id'] or content in i['name']:
+            if content in i['id'] or content in i['name'] or content in i['location']:
                 title = i['name'] + " 입니다."
                 description = i['location'] + " " + i['floor'] + "\n"
                 location_URL = 'https://map.kakao.com/link/to/' + str(i['type']) + '/'
