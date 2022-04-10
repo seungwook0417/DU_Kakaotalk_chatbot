@@ -3,6 +3,7 @@ import json
 from setting.card import *
 from setting.answer_main import answer
 
+
 # 사용자 오류제보 및 건의사항 텔레그램 전송
 def error_report_answer(content):
     title = content['action']['detailParams']['title']["value"]
@@ -14,6 +15,7 @@ def error_report_answer(content):
     response = insert_text(text)
     response = answer(response)
     return response
+
 
 # 텔레그램 전송
 def send_telegram(title, content):

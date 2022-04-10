@@ -4,9 +4,11 @@ from setting.card import *
 from setting.answer_main import answer
 import datetime
 import re
+
 # 봇이 아닌 유저라고 알리는 헤더 값
 headers = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.152 Safari/537.36",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+                  "Chrome/88.0.4324.152 Safari/537.36",
     "Accept-Language": "ko",
     "Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8",
 }
@@ -106,7 +108,7 @@ def find_bus_Paser(content):
             "급행5": [],
             "399": [],
             "진량1": [],
-            "818(귀빈)":[]
+            "818(귀빈)": []
         }
         # 캐시 리스트 방식 보류
         # display_bus_num_list = {
@@ -171,8 +173,9 @@ def find_bus_Paser(content):
             title = busstopName['BUSSTOPNAME'] + "\n정류장의 도착 예정 정보가 없습니다."
             response = insert_text(title)
 
-        response = plus_card(response," ","")
-        response = insert_button_url(response, "웹으로 보기", "http://bus.dryrain.me:5000/bus.html#"+busstopName['BUSSTOPNAME']+"/"+BUSSTOPID)
+        response = plus_card(response, " ", "")
+        response = insert_button_url(response, "웹으로 보기", "http://bus.dryrain.me:5000/bus.html#" + busstopName[
+            'BUSSTOPNAME'] + "/" + BUSSTOPID)
         response = answer(response)
     except:
         title = "정류장의 도착 예정 정보가 없습니다."

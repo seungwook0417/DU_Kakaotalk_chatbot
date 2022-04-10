@@ -11,7 +11,7 @@ carouselbase_response = {'version': '2.0', 'template': {'outputs': [{"carousel":
 # 카카오톡 채널 - 텍스트 응답
 def insert_text(text):
     new_response = deepcopy(base_response)
-    #new_response['template']['outputs'].append({"simpleText": {"text": text}})
+    # new_response['template']['outputs'].append({"simpleText": {"text": text}})
     new_response['template']['outputs'] = [{"simpleText": {"text": text}}]
     return new_response
 
@@ -22,10 +22,12 @@ def insert_image(image_url, alt_text):
     new_response['template']['outputs'] = [{"simpleImage": {"imageUrl": image_url, "altText": alt_text}}]
     return new_response
 
+
 # 카카오톡 채널 - 이미지 응답
 def puls_insert_image(new_response, image_url, alt_text):
     new_response['template']['outputs'].append({"simpleImage": {"imageUrl": image_url, "altText": alt_text}})
     return new_response
+
 
 # 카카오톡 채널 - 카드 응답
 def insert_card(title, description, image_url=None, width=None, height=None):
@@ -53,8 +55,9 @@ def insert_card(title, description, image_url=None, width=None, height=None):
         }}]
     return new_response
 
+
 # 카카오톡 채널 - 카드 응답 추가하기
-def plus_card(new_response,title, description, image_url=None, width=None, height=None):
+def plus_card(new_response, title, description, image_url=None, width=None, height=None):
     if image_url is not None:
         if width is not None and height is not None:
             new_response['template']['outputs'].append({'basicCard': {
@@ -77,6 +80,7 @@ def plus_card(new_response,title, description, image_url=None, width=None, heigh
             'buttons': []
         }})
     return new_response
+
 
 # 카카오톡 채널 - 카드 url 버튼 추가
 def insert_button_url(new_response, label, web_url):

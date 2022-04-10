@@ -18,6 +18,7 @@ from useful.facilities import *
 
 app = Flask(__name__)
 
+
 # Route urls
 # app.route는 flask의 기능으로, '/hello'와 같은 url로 요청이 들어오면 해당 함수만 호출한다.
 
@@ -28,12 +29,14 @@ def schedule():
     response = haksa_chedule_Parser(content)
     return jsonify(response)
 
+
 # 버스정류장 검색
 @app.route("/find_bus", methods=['POST'])
 def find_bus():
     content = request.get_json()
     response = find_bus_Paser(content)
     return jsonify(response)
+
 
 # 강의실 검색
 @app.route("/find_lecture", methods=['POST'])
@@ -42,11 +45,13 @@ def find_lecture():
     response = lecture_Parser(content)
     return jsonify(response)
 
+
 # 구성원 검색
 @app.route("/search", methods=['POST'])
 def search():
     response = search_Parser()
     return jsonify(response)
+
 
 # 이름 연락처 찾기
 @app.route("/search_member", methods=['POST'])
@@ -55,6 +60,7 @@ def search_member():
     response = search_member_Parser(content)
     return jsonify(response)
 
+
 # 소속 연락처 찾기
 @app.route("/search_buseo", methods=['POST'])
 def search_buseo():
@@ -62,12 +68,14 @@ def search_buseo():
     response = search_buseo_Parser(content)
     return jsonify(response)
 
+
 # 전화번호로 부서 찾기
 @app.route("/search_telno", methods=['POST'])
 def search_telno():
     content = request.get_json()
     response = search_telno_Parser(content)
     return jsonify(response)
+
 
 # 오류보고 보고서
 @app.route('/message', methods=['POST'])

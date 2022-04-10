@@ -1,5 +1,6 @@
 from setting.card import insert_text, make_reply, insert_replies
 
+
 # 퀵 리플라이 메인
 def answer(response):
     reply = make_reply('🚍 시내버스 도착정보', '시내버스 도착정보')
