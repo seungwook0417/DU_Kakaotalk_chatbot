@@ -1,0 +1,7 @@
+version: "3.7"
+services:
+  du-kakaotalk:
+    image: seungwook0417/du-haksa:latest
+    build: .
+    ports:
+      - 25000:25000
