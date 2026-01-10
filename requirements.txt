@@ -2,5 +2,6 @@ beautifulsoup4==4.9.1
 Flask==1.1.2
 htmlmin==0.1.12
 requests==2.24.0
-urllib3==1.25.10
+urllib3==2.6.3
 python-telegram-bot==13.1
+werkzeug>=3.1.5 # not directly required, pinned by Snyk to avoid a vulnerability
